@@ -1,14 +1,15 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
+import colors from "tailwindcss/colors";
 
 const config = {
   darkMode: ["class"],
   content: [
-    './index.html',
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
+    "./index.html",
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -20,7 +21,7 @@ const config = {
     },
     extend: {
       fontFamily: {
-        poppins: ["Poppins", "sans-serif"],
+        poppins: ["var(--font-poppins)", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -56,7 +57,8 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        primary: "hsl(var(--primary))",
+        // #00A6FB is 2.7:1 on white: use it for fills; text and small icons use primary-strong (5.4:1).
+        "primary-strong": "#0070A8",
         "primary-hover": "#0096E0",
         "primary-active": "#0086C0",
         "light-primary": "#99DDFF",
@@ -65,13 +67,14 @@ const config = {
         light: "#f4fcff",
         "light-hover": "#e4f4ff",
         "light-active": "#d4ecff",
-        gray: "#8e8e8e",
+        // Keep the full scales (gray-50…900 etc.) next to the brand DEFAULT shade.
+        gray: { ...colors.gray, DEFAULT: "#8e8e8e" },
         "light-gray": "#dedede",
         dark: "#004466",
-        red: "#FF6B73",
+        red: { ...colors.red, DEFAULT: "#FF6B73" },
         "light-red": "#ffeef1",
         "dark-red": "#d14b4f",
-        green: "#27b346",
+        green: { ...colors.green, DEFAULT: "#27b346" },
         "light-green": "#dbffe3",
         gold: "#FFC107",
         "gold-dark": "#ffe607",
@@ -102,6 +105,12 @@ const config = {
           "0%, 100%": { backgroundColor: "none" },
           "50%": { backgroundColor: "#0086C0" },
         },
+        // Small "pop" when a cell or day becomes selected.
+        pop: {
+          "0%": { transform: "scale(0.85)" },
+          "60%": { transform: "scale(1.06)" },
+          "100%": { transform: "scale(1)" },
+        },
         "copy-button": {
           "0%, 100%": { opacity: "100" },
           "20%, 80%": { opacity: "0" },
@@ -115,15 +124,13 @@ const config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "cell-select": "cell-select 500ms ease-in-out",
+        pop: "pop 220ms ease-out",
         "copy-button": "copy-button 1500ms ease-in-out",
         "copy-button-success": "copy-button-success 1500ms ease-in-out",
       },
     },
-    fontFamily: {
-      poppins: ["Poppins", "sans-serif"],
-    },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config
+} satisfies Config;
 
-export default config
+export default config;

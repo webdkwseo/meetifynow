@@ -1,0 +1,61 @@
+Otrzymaliśmy nowe cele biznesowe od Head of Growth. Wdrażamy architekturę wysokiej konwersji dla MeetifyNow jako vertical SaaS dla małych agencji marketingowych i software house.
+
+Pracujesz jako samodzielny Agent AI w IDE. Masz działać iteracyjnie, precyzyjnie i bez zgadywania. Nie przypominaj o stacku technologicznym ani bazowych zasadach projektu — masz je już w kontekście.
+
+Cel biznesowy:
+- skrócić czas potrzebny do ustalenia terminu spotkania projektowego lub klienckiego,
+- ograniczyć chaos komunikacyjny między zespołem i klientem,
+- zwiększyć aktywację produktu i gotowość do płatności w segmencie B2B SMB,
+- przygotować fundament pod Growth plan i późniejsze integracje.
+
+Pozycjonowanie produktu:
+MeetifyNow nie jest ogólnym kalendarzem. To narzędzie do koordynacji spotkań projektowych i klienckich dla małych agencji marketingowych i software house. Rdzeń wartości: mniej wiadomości, szybsze domknięcie terminu, udział bez logowania, workflow zespołowy, niższy koszt administracyjny.
+
+Twoja metoda pracy:
+1. Najpierw autonomicznie przeszukaj strukturę repo i zmapuj pliki odpowiedzialne za:
+   - stronę główną,
+   - onboarding,
+   - flow tworzenia spotkania,
+   - publiczny widok odpowiedzi bez logowania,
+   - dashboard organizatora,
+   - integracje kalendarza,
+   - meta tagi / SEO.
+2. Zidentyfikuj istniejące komponenty, layouty, hooki, akcje serwerowe i modele danych powiązane z tymi obszarami.
+3. Nie zakładaj nazw tabel, kolumn, endpointów ani kontraktów. Najpierw je potwierdź w kodzie.
+4. Pracuj ściśle iteracyjnie: jedno zadanie -> implementacja -> self-review -> testy -> raport -> stop.
+5. Po zakończeniu każdej iteracji przygotuj krótkie podsumowanie: co zmieniłeś, gdzie, dlaczego i jakie ryzyko zostało.
+
+Zasady produktowe:
+- redukuj tarcie w kluczowych ścieżkach,
+- preferuj prosty flow nad konfigurację,
+- nie dodawaj funkcji bez uzasadnienia biznesowego,
+- UI ma być szybsze w odczuciu niż u konkurencji,
+- w krytycznych miejscach stosuj modal / dialog, jeśli skraca drogę do akcji,
+- pokazuj korzyść operacyjną, nie abstrakcyjne slogany.
+
+Priorytet wdrożeniowy:
+Task 1: Uporządkuj lub wdroż flow tworzenia spotkania tak, aby start był maksymalnie prosty, z template’ami typu kickoff, status, review, demo i z minimalną liczbą pól.
+Task 2: Uporządkuj lub wdroż publiczny widok odpowiedzi bez logowania, z czytelnym zaznaczaniem dostępności i jednoznacznym CTA.
+Task 3: Uporządkuj lub wdroż widok organizatora z wyraźnym obrazem odpowiedzi, statusem brakujących odpowiedzi i prostą finalizacją terminu.
+Task 4: Wstrzyknij SEO i messaging produktu do istniejących podstron.
+
+Wymagany copywriting do użycia bez lorem ipsum:
+- Hero H1: Ustalaj terminy spotkań szybciej — z zespołem i klientem
+- Hero subheadline: Koniec chaosu w umawianiu spotkań projektowych. MeetifyNow pomaga małym agencjom marketingowym i software house szybciej domykać terminy bez zbędnego logowania i bez wielowątkowej wymiany wiadomości.
+- Bullet 1: Udział bez logowania dla uczestników
+- Bullet 2: Mniej wiadomości potrzebnych do zamknięcia terminu
+- Bullet 3: Szablony spotkań dla pracy projektowej
+- Bullet 4: Integracje z kalendarzem i workflow zespołu
+- CTA primary: Zacznij ustalać termin
+- CTA secondary: Zobacz jak to działa
+- Meta title: MeetifyNow — szybkie ustalanie terminów z klientem i zespołem
+- Meta description: Ustalaj terminy spotkań projektowych i klienckich szybciej. Bez chaosu, bez zbędnego logowania, z myślą o małych agencjach marketingowych i software house.
+
+Kryteria jakości:
+- żadnych szerokich refaktorów bez potrzeby,
+- żadnego zgadywania struktur danych,
+- żadnych placeholderów w produkcyjnym copy,
+- każda zmiana ma wspierać aktywację, CRO albo obniżenie kosztu koordynacji,
+- jeśli natrafisz na niejasność architektoniczną, zatrzymaj się i opisz opcje zamiast improwizować.
+
+W tej iteracji wykonaj wyłącznie Task 1. Po wdrożeniu przeprowadź self-review, opisz zmienione pliki, pokaż wpływ na konwersję i zakończ pracę bez przechodzenia do Task 2.

@@ -36,6 +36,9 @@ vi.mock("framer-motion", () => ({
 // Cleanup after each test
 afterEach(() => {
   cleanup();
+  // Hooks persist drafts/preferences in browser storage; keep tests isolated.
+  localStorage.clear();
+  sessionStorage.clear();
   vi.clearAllMocks();
 });
 

@@ -1,0 +1,19 @@
+Sprint 03 — Growth Layer
+
+Zakres wyłącznie na ten sprint:
+1. Zidentyfikuj punkty styku dla CRM, Slack i analityki.
+2. Dodaj lub uporządkuj:
+   - smart recommended slots,
+   - response latency analytics,
+   - recurring meetings,
+   - required participants logic,
+   - podstawy CRM/Slack integration, jeśli architektura już na to pozwala.
+3. Każdą rekomendację wyjaśnij użytkownikowi prostym językiem.
+
+Cel biznesowy:
+Podnieść ARPU, retencję i trudność kopiowania produktu.
+
+Po wdrożeniu:
+- przeprowadź self-review,
+- opisz ograniczenia obecnej architektury,
+- zaproponuj kolejny najmniejszy sensowny krok.

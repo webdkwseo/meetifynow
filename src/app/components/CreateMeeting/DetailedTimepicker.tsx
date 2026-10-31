@@ -1,5 +1,5 @@
 import moment from "moment";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { generateShortDaysNames } from "../../utils/meeting/TimeFunctions";
 
 type DayTimesData = {
@@ -20,6 +20,21 @@ export default function DetailedTimepicker(props: {
     useState<number[]>(getPickedTimes());
   const [selectionMode, setSelectionMode] = useState(false);
   const [unselectMode, setUnselectMode] = useState(false);
+
+  // Scroll the grid to the first selected half-hour instead of 00:00.
+  const tableRef = useRef<HTMLTableElement>(null);
+  useEffect(() => {
+    const first = tableRef.current?.querySelector<HTMLElement>(
+      '[aria-pressed="true"]',
+    );
+    const scroller = tableRef.current?.closest<HTMLElement>(".overflow-y-auto");
+    if (first && scroller) {
+      scroller.scrollTop +=
+        first.getBoundingClientRect().top -
+        scroller.getBoundingClientRect().top -
+        48;
+    }
+  }, []);
 
   const [windowWidth, setWindowWidth] = useState(1024);
   useEffect(() => {
@@ -99,8 +114,17 @@ export default function DetailedTimepicker(props: {
 
           timeRow.push(
             <td key={dateTime}>
-              <div
+              <button
+                type="button"
                 data-date={dateTime}
+                aria-pressed={isDateSelected(dateTime)}
+                aria-label={moment(dateTime).format("dddd D MMMM, HH:mm")}
+                // Keyboard activation (detail 0); mouse/touch handled by mousedown.
+                onClick={(e) => {
+                  if (e.detail !== 0) return;
+                  toggleTimecell(dayDatetime, dateTime);
+                  setUnselectMode(false);
+                }}
                 onMouseDown={() => {
                   toggleTimecell(dayDatetime, dateTime);
                   if (!isMobile()) setSelectionMode(true);
@@ -117,7 +141,7 @@ export default function DetailedTimepicker(props: {
                     disableSelection();
                   }
                 }}
-                className={`rounded-lg h-12 w-24 lg:h-6 lg:w-12 transition-colors ${
+                className={`block rounded-lg h-10 w-16 sm:w-20 lg:h-6 lg:w-12 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dark focus-visible:ring-offset-1 ${
                   isEndOfWeek ? "mr-4" : ""
                 } ${
                   isDateSelected(dateTime)
@@ -176,13 +200,16 @@ export default function DetailedTimepicker(props: {
             (moment(day).month() + 1).toString().padStart(2, "0")}
         </p>
         <p className="text-dark">
-          {moment(day).day() === 0 ? "Nd" : daysNaming[moment(day).day() - 1]}
+          {daysNaming[moment(day).day() === 0 ? 6 : moment(day).day() - 1]}
         </p>
       </th>
     ));
 
   return (
-    <table className="time__seclection--table w-fit self-center select-none">
+    <table
+      ref={tableRef}
+      className="time__seclection--table w-fit self-center select-none"
+    >
       <thead>
         <tr>
           <th className="bg-white sticky top-0 left-0 z-20" />

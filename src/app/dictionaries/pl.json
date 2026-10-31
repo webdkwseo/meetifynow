@@ -1,18 +1,30 @@
 {
   "website": {
     "title": "MeetifyNow - Prosta platforma do planowania spotkań",
-    "description": "MeetifyNow to łatwa w obsłudze platforma do planowania spotkań bez potrzeby logowania. Idealne rozwiązanie dla szybkiego umawiania spotkań online!",
+    "description": "MeetifyNow pomaga zespołom i klientom szybko ustalić termin spotkania. Uczestnicy odpowiadają przez link, bez zakładania konta.",
     "url": "https://meetifynow.com/pl"
   },
   "button": {
     "homePage": "Strona główna",
     "copyLink": {
       "copy": "Skopiuj link",
-      "copied": "Skopiowano!"
+      "copied": "Skopiowano!",
+      "failed": "Nie udało się skopiować",
+      "share": "Udostępnij link"
     },
     "back": "Wróć",
     "next": "Dalej",
-    "submit": "Wyślij"
+    "submit": "Wyślij",
+    "createMeeting": "Utwórz spotkanie",
+    "confirm": "Potwierdź",
+    "cancel": "Anuluj"
+  },
+  "nav": {
+    "home": "MeetifyNow – strona główna",
+    "newMeeting": "Nowe spotkanie",
+    "dashboard": "Panel",
+    "login": "Zaloguj się",
+    "language": "Język"
   },
   "page": {
     "error": {
@@ -26,25 +38,25 @@
       }
     },
     "home": {
-      "headerText": "MeetifyNow to łatwa w obsłudze platforma do planowania spotkań bez potrzeby logowania.",
-      "title": "Planowanie spotkań nigdy nie było prostsze!",
-      "createButton": "Utwórz spotkanie",
+      "headerText": "Koniec chaosu w umawianiu spotkań projektowych. Mniej wiadomości potrzebnych do zamknięcia terminu.",
+      "title": "Ustalaj terminy spotkań szybciej — z zespołem i klientem",
+      "createButton": "Zacznij ustalać termin",
       "infoBlock": {
         "fast": {
-          "title": "Szybkie i łatwe",
-          "text": "MeetifyNow to Twój sposób na szybkie i łatwe planowanie spotkań! Stworzysz je w kilka sekund. Nasza aplikacja zapewnia łatwość obsługi i uczyni organizację spotkań przyjemnością."
+          "title": "Mniej wiadomości",
+          "text": "Jeden link zamiast długich wątków mailowych. Termin spotkania projektowego zamykasz w kilka minut, nie w kilka dni."
         },
         "everyone": {
-          "title": "Dla każdego",
-          "text": "Niezależnie od tego, czy organizujesz spotkanie biznesowe, czy towarzyskie, skorzystaj z MeetifyNow i ciesz się szybkim, prostym i przyjemnym procesem planowania!"
+          "title": "Z zespołem i klientem",
+          "text": "Ustalaj terminy spotkań szybciej z klientem bez zmuszania ich do rejestracji na nowej platformie."
         },
         "time": {
-          "title": "Nie trać czasu na logowanie",
-          "text": "Z MeetifyNow planowanie spotkań staje się jeszcze łatwiejsze — możesz to robić bez konieczności logowania! Oszczędź cenny czas i błyskawicznie zaplanuj swoje spotkania!"
+          "title": "Udział bez logowania dla uczestników",
+          "text": "Koniec chaosu. Uczestnicy po prostu wpisują swoje imię, klikają sloty i tyle. Mniej wiadomości potrzebnych do zamknięcia terminu."
         },
         "online": {
           "title": "Wybór dostępności online",
-          "text": "Nasza aplikacja umożliwia wybór dostępności na spotkaniu, nawet jeśli jesteś dostępny tylko zdalnie! W pełni dostosuj harmonogram spotkania do swoich potrzeb."
+          "text": "Uczestnicy mogą zaznaczyć godziny, w których są dostępni tylko zdalnie. Od razu widać, czy spotkanie lepiej zorganizować online."
         },
         "flexibleHours": {
           "title": "Niestandardowe godziny",
@@ -54,7 +66,11 @@
       "demo": {
         "date": "Czw, 18 Kwi",
         "peopleAvailable": "3 osoby dostępne",
-        "yourChoice": "Twój wybór"
+        "yourChoice": "Twój wybór",
+        "heatmapTitle": "Dostępność zespołu",
+        "legendMost": "Najwięcej osób",
+        "legendSome": "Część osób",
+        "legendBest": "Najlepszy termin"
       },
       "hero": {
         "learnMore": "Dowiedz się więcej"
@@ -64,8 +80,8 @@
         "title": "Planuj spotkania błyskawicznie",
         "items": [
           {
-            "title": "Brak logowania",
-            "desc": "Zacznij planować od razu, bez tracenia czasu na tworzenie kont i haseł."
+            "title": "Bez konta dla uczestników",
+            "desc": "Uczestnicy wpisują tylko imię i zaznaczają godziny. Nie muszą zakładać konta ani pamiętać hasła."
           },
           {
             "title": "Widok kalendarza",
@@ -91,7 +107,7 @@
           },
           {
             "title": "2. Prześlij i zagłosujcie",
-            "desc": "Udostępniasz widok grupie. Wszyscy anonimowo i sprawnie oddają głos."
+            "desc": "Udostępniasz link grupie. Każdy wpisuje imię i zaznacza swoje godziny – bez rejestracji."
           },
           {
             "title": "3. Idealny czas",
@@ -101,7 +117,7 @@
       },
       "cta": {
         "title": "Proste w użyciu. Potężne w działaniu.",
-        "description": "Przestańcie wymieniać dziesiątki wiadomości w poszukiwaniu jednego pasującego terminu. Dołącz do zadowolonych użytkowników.",
+        "description": "Przestańcie wymieniać dziesiątki wiadomości w poszukiwaniu jednego pasującego terminu.",
         "button": "Zacznij planować"
       }
     },
@@ -146,12 +162,6 @@
       }
     },
     "auth": {
-      "hamburgerMenu": {
-        "profile": "Profil",
-        "createMeeting": "Utwórz spotkanie",
-        "logout": "Wyloguj się",
-        "login": "Zaloguj się"
-      },
       "input": {
         "name": {
           "label": "Nazwa",
@@ -191,8 +201,50 @@
       }
     },
     "createMeeting": {
-      "title": "Utwórz nowe spotkanie",
-      "createButton": "Utwórz spotkanie",
+      "title": "Nowe spotkanie",
+      "createButton": "Zacznij ustalać termin",
+      "submitButton": "Utwórz spotkanie",
+      "templates": {
+        "label": "Szablon nazwy (opcjonalnie)",
+        "kickoff": "Spotkanie startowe",
+        "status": "Status projektu",
+        "review": "Przegląd prac",
+        "demo": "Prezentacja"
+      },
+      "advanced": "Miejsce i link (opcjonalnie)",
+      "requiredParticipants": {
+        "label": "Obowiązkowi uczestnicy",
+        "optional": "(opcjonalnie)",
+        "hint": "Wpisz imię i naciśnij Enter. Rekomendowane terminy pokażą tylko te godziny, w których wszystkie te osoby są dostępne – uczestnicy muszą odpowiedzieć pod tym samym imieniem.",
+        "fromTeam": "Dodaj z zespołu:",
+        "placeholder": "np. Anna",
+        "add": "Dodaj",
+        "remove": "Usuń: {name}"
+      },
+      "private": {
+        "label": "Spotkanie prywatne",
+        "hint": "Dostęp tylko dla członków workspace"
+      },
+      "dates": {
+        "selected": "Wybrane dni: {count} / 15",
+        "prevMonth": "Poprzedni miesiąc",
+        "nextMonth": "Następny miesiąc",
+        "hint": "Kliknij dni lub przeciągnij po kalendarzu.",
+        "quick": {
+          "nextWorkdays": "5 najbliższych dni roboczych",
+          "nextWeek": "Przyszły tydzień"
+        }
+      },
+      "timeModes": {
+        "label": "Sposób wyboru godzin",
+        "same": "Te same godziny",
+        "perDay": "Inne dla każdego dnia",
+        "manual": "Zaznacz ręcznie",
+        "perDayDescription": "Ustaw osobny przedział godzin dla każdego wybranego dnia.",
+        "manualDescription": "Kliknij lub przeciągnij po siatce, aby dodać albo usunąć pojedyncze półgodziny.",
+        "from": "Od",
+        "to": "Do"
+      },
       "error": {
         "createFailed": "Nie udało się utworzyć spotkania. Spróbuj ponownie."
       },
@@ -217,7 +269,7 @@
       "validate": {
         "meeting__name": {
           "required": "Nazwa spotkania jest wymagana.",
-          "min": "Nazwa spotkania musi mieć co najmniej 4 znaki.",
+          "min": "Nazwa spotkania musi mieć co najmniej 2 znaki.",
           "max": "Nazwa spotkania może mieć maksymalnie 50 znaków."
         },
         "meeting__place": {
@@ -232,31 +284,96 @@
       "input": {
         "meeting__name": {
           "label": "Nazwa spotkania",
-          "placeholder": "📝 Nazwa spotkania"
+          "placeholder": "np. Omówienie projektu"
         },
         "meeting__place": {
           "label": "Miejsce spotkania",
-          "placeholder": "🏢 Miejsce spotkania"
+          "placeholder": "np. Biuro, sala 2"
         },
         "meeting__link": {
           "label": "Link do spotkania",
-          "placeholder": "🔗 Link do spotkania"
+          "placeholder": "https://…"
+        }
+      },
+      "duration": {
+        "label": "Czas trwania",
+        "options": {
+          "30": "30 min",
+          "60": "1 godz.",
+          "90": "1,5 godz.",
+          "120": "2 godz."
         }
       }
     },
     "answerMeeting": {
+      "ogDescription": "Dołącz do spotkania i zaznacz swoją dostępność.",
       "nobodyAvailable": "Nikt nie jest dostępny w wybranym terminie 😥",
       "clickToReveal": "Kliknij na godzinę, aby zobaczyć dostępność",
       "hoverToReveal": "Najedź na godzinę, aby zobaczyć dostępność",
       "toggleButton": {
-        "showAvailability": "Sprawdź dostępność 👀",
-        "answerMeeting": "Zaznacz dostępność ☑️"
+        "showAvailability": "Zobacz wyniki",
+        "answerMeeting": "Zaznacz dostępność"
       },
       "input": {
         "name": {
-          "label": "Twoje imie",
-          "placeholder": "📝 Twoje imie"
+          "label": "Twoje imię",
+          "placeholder": "np. Anna"
         }
+      },
+      "mode": {
+        "label": "Zaznaczam jako",
+        "offline": "Stacjonarnie",
+        "online": "Online"
+      },
+      "gridHint": "Kliknij lub przeciągnij po godzinach, aby je zaznaczyć. Kliknięcie dnia albo godziny zaznacza cały dzień lub wiersz. Kliknij zaznaczone pole jeszcze raz, aby je odznaczyć.",
+      "legend": {
+        "title": "Legenda",
+        "yourOffline": "Twój wybór – stacjonarnie",
+        "yourOnline": "Twój wybór – online",
+        "best": "Najwięcej dostępnych osób",
+        "unavailable": "Godzina spoza ankiety",
+        "outsideYours": "Poza Twoją dostępnością",
+        "conflict": "Masz wtedy inne spotkanie",
+        "heat": "Im ciemniej, tym więcej osób dostępnych",
+        "mostlyOnline": "Większość osób online"
+      },
+      "cellLabel": "{date}, {time} – dostępnych: {count}",
+      "meetingLink": "Link do spotkania",
+      "answeringAs": "Odpowiadasz jako:",
+      "requiredHint": "Organizator czeka na odpowiedź od:",
+      "requiredHintAction": "Kliknij swoje imię, aby je wpisać.",
+      "finalized": {
+        "title": "Termin zatwierdzony",
+        "participantInfo": "Organizator wybrał termin spotkania. Dodaj je do swojego kalendarza.",
+        "change": "Zmień termin",
+        "confirmChange": "Cofnąć zatwierdzony termin? Ankieta znów będzie otwarta do wyboru terminu.",
+        "changeFailed": "Nie udało się zresetować terminu.",
+        "duration": "Czas trwania: {minutes} min",
+        "addToGoogle": "Dodaj do Google Calendar",
+        "downloadIcs": "Pobierz .ics",
+        "showGrid": "Zmień swoją dostępność"
+      },
+      "recommended": {
+        "title": "Rekomendowane terminy",
+        "requiredNote": "(wszyscy obowiązkowi uczestnicy dostępni)",
+        "available": "dostępnych: {count}/{total}",
+        "outside": "poza Twoją dostępnością",
+        "finalize": "Zatwierdź",
+        "confirmFinalize": "Zatwierdzić termin {date}?",
+        "finalizeFailed": "Nie udało się zatwierdzić terminu.",
+        "fewAnswers": "Na razie jest tylko jedna odpowiedź — rekomendacje będą trafniejsze, gdy odpowie więcej osób.",
+        "noRequiredMatch": "Żaden termin nie pasuje wszystkim obowiązkowym osobom. Najbliżej: {date} — brakuje: {names}.",
+        "confirmFinalizeHint": "Organizator i członkowie workspace dostaną e-mail z terminem i plikiem do kalendarza.",
+        "confirmOutside": "Ten termin jest poza Twoją dostępnością albo za blisko innego spotkania. Możesz go mimo to zatwierdzić.",
+        "finalizeAnyway": "Zatwierdź mimo to",
+        "titlePublic": "Najlepsze terminy"
+      },
+      "workspace": {
+        "participants": "Uczestnicy workspace ({answered}/{total})",
+        "missing": "brak odpowiedzi",
+        "sendReminder": "Wyślij przypomnienie ({count})",
+        "sending": "Wysyłanie…",
+        "sent": "Wysłano!"
       },
       "validate": {
         "name": {
@@ -265,40 +382,224 @@
         }
       },
       "error": {
-        "alreadyAnswered": "Już odpowiedziałeś na to spotkanie.",
+        "alreadyAnswered": "Odpowiedź z tej przeglądarki została już wysłana.",
+        "alreadyTaken": "To imię jest już zajęte. Wpisz inne.",
         "submitFailed": "Nie udało się wysłać odpowiedzi. Spróbuj ponownie."
       },
       "success": "Twoja dostępność została wysłana!",
-      "firstToAnswer": "Bądź pierwszym! Zaznacz swoją dostępność po prawej stronie.",
-      "responseCount": "odpowiedzi",
-      "help_popup": {
-        "line1": {
-          "segment1": "Nie wiesz, co oznaczają dane",
-          "segment2": " kolory",
-          "segment3": "? To proste!"
-        },
-        "line2": "Oto co one reprezentują 👇",
-        "showMode": {
-          "title": "Podczas zaznaczania 👀:",
-          "green": "- Dostępność stacjonarna.",
-          "gold": "- Dostępność zdalna."
-        },
-        "answerMode": {
-          "title": "Podczas sprawdzania ☑️:",
-          "green": "- Najwięcej dostępnych osób.",
-          "gold": "- Najwięcej dostępnych osób zdalnie.",
-          "lightGreen": "- Data z mniejszą dostępnością."
-        }
+      "sending": "Wysyłanie…",
+      "firstToAnswer": "Nikt jeszcze nie odpowiedział. Zaznacz swoją dostępność jako pierwsza osoba!",
+      "responseCount": {
+        "one": "{count} odpowiedź",
+        "few": "{count} odpowiedzi",
+        "many": "{count} odpowiedzi",
+        "other": "{count} odpowiedzi"
       },
       "button": {
         "submit": "Wyślij",
         "update": "Zaktualizuj odpowiedź",
         "clearAnswers": "Odznacz wszystko"
-      }
+      },
+      "previewNote": "liczby uwzględniają Twój niewysłany wybór",
+      "timezoneNote": "Godziny w Twojej strefie: {tz} · spotkanie trwa {minutes} min.",
+      "organizerTimezone": "Organizator: {tz}.",
+      "selectDay": "Zaznacz lub odznacz cały dzień: {day}",
+      "selectDayHint": "Kliknij, aby zaznaczyć cały dzień",
+      "selectHour": "Zaznacz lub odznacz godzinę {time} we wszystkie dni",
+      "selectHourHint": "Kliknij, aby zaznaczyć tę godzinę we wszystkie dni",
+      "help": {
+        "toggle": "Jak to działa? (legenda)"
+      },
+      "savedNotice": "Twoja odpowiedź jest zapisana — możesz ją zmienić w każdej chwili. Wyślij link pozostałym uczestnikom.",
+      "pastNotice": "Wszystkie terminy w tej ankiecie już minęły. Utwórz nowe spotkanie, aby ustalić kolejny termin.",
+      "notFoundTitle": "Nie znaleziono spotkania"
     },
     "answerNotFoundPage": {
       "title": "Nie znaleziono takiego spotkania 😥",
       "heading": "Zawsze możesz stworzyć własne 😎"
+    },
+    "dashboard": {
+      "fallbackTitle": "Panel",
+      "newMeeting": "Nowe spotkanie",
+      "tabs": {
+        "label": "Sekcje panelu",
+        "meetings": "Spotkania",
+        "overview": "Przegląd",
+        "team": "Zespół",
+        "settings": "Ustawienia",
+        "availability": "Dostępność"
+      },
+      "roles": {
+        "owner": "Właściciel",
+        "admin": "Administrator",
+        "member": "Członek"
+      },
+      "workspaceBanner": {
+        "title": "Zarządzaj spotkaniami z zespołem",
+        "text": "Utwórz organizację, zaproś współpracowników i koordynuj terminy bez chaosu wiadomości.",
+        "button": "Utwórz"
+      },
+      "meetings": {
+        "pending": "Oczekujące",
+        "noActive": "Brak spotkań czekających na odpowiedzi.",
+        "noMeetings": "Nie masz jeszcze żadnych spotkań.",
+        "createFirst": "Utwórz pierwsze spotkanie",
+        "org": "Organizacja",
+        "mine": "Moje",
+        "canPick": "Można wybrać termin",
+        "awaiting": "Czeka na odpowiedzi",
+        "answers": {
+          "one": "{count} odpowiedź",
+          "few": "{count} odpowiedzi",
+          "many": "{count} odpowiedzi",
+          "other": "{count} odpowiedzi"
+        },
+        "missing": "brakuje {count}",
+        "copyLink": "Kopiuj link do ankiety",
+        "copied": "Skopiowano!",
+        "cancel": "Anuluj spotkanie",
+        "confirmCancel": "Anulować spotkanie „{name}”? Tej operacji nie można cofnąć.",
+        "pickDate": "Wybierz termin",
+        "details": "Szczegóły",
+        "markNoShow": "Nie odbyło się",
+        "scheduled": "Zaplanowane",
+        "completed": "Zakończone",
+        "noShow": "Brak uczestnictwa",
+        "cancelled": "Anulowane",
+        "collecting": "Zbiera odpowiedzi",
+        "createNext": "Nowe spotkanie",
+        "undoNoShow": "Cofnij"
+      },
+      "overview": {
+        "title": "Koordynacja – {name}",
+        "total": "Spotkania ogółem",
+        "totalSub": "wszystkie spotkania",
+        "closed": "Zamknięte",
+        "closedSub": "termin ustalony",
+        "avgClose": "Śr. czas koordynacji",
+        "avgCloseSub": "od utworzenia do zamknięcia",
+        "avgResponses": "Śr. liczba odpowiedzi",
+        "avgResponsesSub": "na spotkanie",
+        "avgLatency": "Śr. czas odpowiedzi",
+        "avgLatencySub": "od utworzenia do odpowiedzi",
+        "hours": "{count} h",
+        "days": "{count} dni",
+        "empty": "Brak spotkań. Utwórz pierwsze spotkanie, aby zobaczyć metryki.",
+        "underHour": "< 1 h"
+      },
+      "team": {
+        "members": "Aktywni członkowie ({count})",
+        "unknownUser": "Użytkownik #{id}",
+        "remove": "Usuń z workspace",
+        "confirmRemove": "Usunąć {name} z workspace?",
+        "pendingInvites": "Oczekujące zaproszenia ({count})",
+        "expires": "wygasa {date}",
+        "copyInvite": "Kopiuj link zaproszenia",
+        "resend": "Wyślij ponownie",
+        "revoke": "Cofnij zaproszenie",
+        "confirmRevoke": "Cofnąć zaproszenie dla {email}?",
+        "sentTo": "Zaproszenie wysłane na",
+        "copy": "Kopiuj",
+        "copied": "Skopiowano!",
+        "inviteTitle": "Zaproś nowego członka",
+        "emailLabel": "Adres e-mail",
+        "emailPlaceholder": "adres@firma.pl",
+        "roleLabel": "Rola",
+        "invalidEmail": "Podaj poprawny adres e-mail.",
+        "inviteFailed": "Nie udało się wysłać zaproszenia.",
+        "sending": "Wysyłanie…",
+        "send": "Wyślij zaproszenie"
+      },
+      "settings": {
+        "subtitle": "Ustawienia workspace",
+        "name": "Nazwa workspace",
+        "save": "Zapisz",
+        "saving": "Zapisywanie…",
+        "brandColor": "Kolor marki",
+        "colorOption": "Kolor {color}"
+      },
+      "onboarding": {
+        "title": "Utwórz workspace",
+        "subtitle": "Wspólne miejsce do koordynacji spotkań zespołu",
+        "nameLabel": "Nazwa firmy lub zespołu",
+        "namePlaceholder": "np. Agencja XYZ",
+        "nameError": "Nazwa musi mieć co najmniej 2 znaki.",
+        "brandColor": "Kolor marki",
+        "preview": "Podgląd workspace",
+        "creating": "Tworzenie…",
+        "submit": "Utwórz workspace"
+      },
+      "availability": {
+        "title": "Reguły dostępności",
+        "description": "Określ, kiedy zwykle możesz brać udział w spotkaniach. Te reguły są uwzględniane przy rekomendowaniu i zatwierdzaniu terminów.",
+        "timezone": "Strefa czasowa",
+        "weekly": "Harmonogram tygodniowy",
+        "days": [
+          "Niedziela",
+          "Poniedziałek",
+          "Wtorek",
+          "Środa",
+          "Czwartek",
+          "Piątek",
+          "Sobota"
+        ],
+        "unavailable": "niedostępny",
+        "toggleDay": "Dostępność: {day}",
+        "from": "Od ({day})",
+        "to": "Do ({day})",
+        "invalidRange": "{day}: koniec musi być później niż początek.",
+        "limits": "Bufory i ograniczenia",
+        "bufferBefore": "Bufor przed spotkaniem",
+        "bufferAfter": "Bufor po spotkaniu",
+        "minNotice": "Minimalne wyprzedzenie",
+        "maxHorizon": "Maksymalny horyzont",
+        "minutes": "min",
+        "daysUnit": "dni",
+        "limitsInfo": "Te limity są sprawdzane przy zatwierdzaniu terminu: bufory chronią czas między spotkaniami, a minimalne wyprzedzenie to najkrótszy czas od teraz, na jaki można zaplanować spotkanie. Termin spoza nich możesz zatwierdzić po dodatkowym potwierdzeniu.",
+        "save": "Zapisz ustawienia",
+        "saving": "Zapisywanie…",
+        "saved": "Zapisano!",
+        "saveFailed": "Nie udało się zapisać.",
+        "exceptions": "Wyjątki (dni zablokowane)",
+        "exceptionsHint": "Zablokuj dni, w których nie możesz brać udziału w spotkaniach. Zapisują się od razu — nie trzeba klikać „Zapisz”.",
+        "exceptionDate": "Data wyjątku",
+        "add": "Dodaj",
+        "blocked": "zablokowany",
+        "customHours": "własne godziny",
+        "removeException": "Usuń wyjątek",
+        "noExceptions": "Brak wyjątków.",
+        "error": "Błąd"
+      }
+    },
+    "invitation": {
+      "invalidTitle": "Zaproszenie nieważne",
+      "invalidText": "Ten link zaproszenia wygasł, został odwołany lub nie istnieje.",
+      "expiredTitle": "Zaproszenie wygasło",
+      "expiredText": "Poproś administratora workspace o nowe zaproszenie.",
+      "welcome": "Witamy na pokładzie!",
+      "joined": "Dołączono do",
+      "goToDashboard": "Przejdź do panelu",
+      "title": "Zaproszenie do workspace",
+      "invitedTo": "Masz zaproszenie do",
+      "as": "z rolą",
+      "loginPrompt": "Zaloguj się, aby przyjąć zaproszenie.",
+      "login": "Zaloguj się",
+      "accept": "Przyjmij zaproszenie",
+      "acceptFailed": "Nie udało się przyjąć zaproszenia.",
+      "home": "Strona główna"
+    },
+    "reschedule": {
+      "metaTitle": "Zmień termin — MeetifyNow",
+      "title": "Zmień termin spotkania",
+      "cancelledTitle": "Spotkanie anulowane",
+      "cancelledText": "To spotkanie zostało anulowane. Nie można zmienić terminu.",
+      "noDates": "Brak dostępnych terminów.",
+      "pick": "Wybierz nowy termin:",
+      "current": "(bieżący)",
+      "confirm": "Potwierdź nowy termin",
+      "saving": "Zapisywanie…",
+      "success": "Termin zaktualizowany!",
+      "failed": "Nie udało się zmienić terminu."
     }
   },
   "footer": {
@@ -307,5 +608,47 @@
     "developerTitle": "Tworzenie stron internetowych WebDKW",
     "developerAlt": "Agencja interaktywna, tworzenie stron i sklepów internetowych WebDKW",
     "rights": "meetifynow.com"
+  },
+  "errors": {
+    "GENERIC": "Coś poszło nie tak. Spróbuj ponownie.",
+    "UNAUTHENTICATED": "Zaloguj się, aby to zrobić.",
+    "FORBIDDEN": "Nie masz uprawnień do tej akcji.",
+    "NOT_FOUND": "Nie znaleziono — mogło zostać usunięte.",
+    "NAME_TOO_SHORT": "Nazwa spotkania musi mieć co najmniej 2 znaki.",
+    "NAME_TOO_LONG": "Nazwa spotkania może mieć maksymalnie 50 znaków.",
+    "PLACE_TOO_LONG": "Miejsce może mieć maksymalnie 100 znaków.",
+    "LINK_TOO_LONG": "Link jest za długi.",
+    "DATES_REQUIRED": "Wybierz co najmniej jeden dzień.",
+    "DATES_TOO_MANY": "Możesz wybrać maksymalnie 15 dni.",
+    "INVALID_DURATION": "Wybierz czas trwania z listy.",
+    "USERNAME_REQUIRED": "Wpisz swoje imię.",
+    "USERNAME_TOO_LONG": "Imię może mieć maksymalnie 20 znaków.",
+    "USERNAME_TAKEN": "To imię jest już zajęte. Wpisz inne.",
+    "ALREADY_ANSWERED": "Już odpowiedziałeś(-aś) w tej ankiecie — możesz edytować swoją odpowiedź.",
+    "ANSWER_NOT_FOUND": "Nie znaleziono Twojej odpowiedzi. Odśwież stronę.",
+    "MEETING_CANCELLED": "To spotkanie zostało anulowane.",
+    "NO_FINAL_DATE": "Najpierw zatwierdź termin spotkania.",
+    "SLOT_NOT_IN_POLL": "Ten termin nie należy do ankiety.",
+    "OUTSIDE_AVAILABILITY": "Ten termin jest poza Twoją dostępnością albo koliduje z innym spotkaniem.",
+    "RATE_LIMITED": "Przypomnienie zostało już wysłane. Kolejne możesz wysłać za godzinę.",
+    "WORKSPACE_NAME_TOO_SHORT": "Nazwa workspace musi mieć co najmniej 2 znaki.",
+    "WORKSPACE_NAME_TOO_LONG": "Nazwa workspace może mieć maksymalnie 60 znaków.",
+    "WORKSPACE_EXISTS": "Masz już workspace.",
+    "INVALID_COLOR": "Nieprawidłowy kolor.",
+    "INVALID_EMAIL": "Nieprawidłowy adres e-mail.",
+    "INVALID_TIMEZONE": "Nieprawidłowa strefa czasowa.",
+    "INVALID_SCHEDULE": "Sprawdź godziny — koniec musi być po początku.",
+    "INVITE_EXISTS": "Aktywne zaproszenie dla tego adresu już istnieje.",
+    "INVITE_INACTIVE": "To zaproszenie nie jest już aktywne.",
+    "INVITE_EXPIRED": "To zaproszenie wygasło. Poproś o nowe.",
+    "ALREADY_MEMBER": "Należysz już do tego workspace.",
+    "CANNOT_REMOVE_OWNER": "Nie można usunąć właściciela workspace."
+  },
+  "recentMeetings": {
+    "title": "Twoje ostatnie spotkania",
+    "hint": "Zapisane tylko w tej przeglądarce.",
+    "created": "Utworzone",
+    "answered": "Twoja odpowiedź",
+    "remove": "Usuń z listy: {name}"
   }
 }

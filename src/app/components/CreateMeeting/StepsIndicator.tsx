@@ -17,7 +17,7 @@ export default function StepsIndicator(props: {
           isLast={i === props.steps - 1}
           index={i}
           shouldAnimateLine={i + 1 === props.currIndex}
-        />
+        />,
       );
     }
     return stepsItems;

@@ -58,7 +58,7 @@ export default function SpotlightCard({
       onMouseLeave={handleMouseLeave}
       className={twMerge(
         clsx(
-          "relative overflow-hidden rounded-[32px] bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray/5 transition-all duration-500 hover:shadow-[0_8px_40px_rgb(0,150,224,0.08)]",
+          "relative overflow-hidden rounded-3xl bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray/5 transition-all duration-500 hover:shadow-[0_8px_40px_rgb(0,150,224,0.08)]",
           className,
         ),
       )}

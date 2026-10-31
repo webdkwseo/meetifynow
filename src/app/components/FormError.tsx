@@ -1,4 +1,4 @@
-import { FaCircleCheck, FaTriangleExclamation } from "react-icons/fa6";
+import { CircleCheck, TriangleAlert } from "lucide-react";
 
 type Props = {
   text: string;
@@ -16,9 +16,9 @@ export const FormError = ({ text, error = false }: Props) => {
       }
     >
       {error ? (
-        <FaTriangleExclamation className="mr-2" />
+        <TriangleAlert className="mr-2 w-4 h-4" aria-hidden />
       ) : (
-        <FaCircleCheck className="mr-2" />
+        <CircleCheck className="mr-2 w-4 h-4" aria-hidden />
       )}
       <span>{text}</span>
     </div>

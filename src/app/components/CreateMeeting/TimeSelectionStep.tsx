@@ -1,17 +1,11 @@
 import DetailedTimepicker from "@/components/CreateMeeting/DetailedTimepicker";
+import SlidingPill from "@/components/ui/SlidingPill";
 import Timepicker from "@/components/CreateMeeting/Timepicker";
-import IconButton from "@/components/IconButton";
 import { generateShortDaysNames } from "@/utils/meeting/TimeFunctions";
-import {
-  faCalendar,
-  faCalendarDay,
-  faCalendarDays,
-} from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
 import moment from "moment";
 import React from "react";
-
-// ... (definicje interfejsów DailyTimeRange, DailyHours)
+import { DailyHours, DailyTimeRange } from "../../hooks/useCreateMeeting";
 
 interface TimeSelectionStepProps {
   dict: any;
@@ -22,8 +16,8 @@ interface TimeSelectionStepProps {
   mainToTime: number;
   setMainFromTime: (time: number) => void;
   setMainToTime: (time: number) => void;
-  dailyTimeRanges: any[]; // Użyj dokładniejszego typu
-  dailyHours: any; // Użyj dokładniejszego typu
+  dailyTimeRanges: DailyTimeRange[];
+  dailyHours: DailyHours;
   handleDailyHourChange: (
     date: number,
     type: "from" | "to",
@@ -48,7 +42,14 @@ const TimeSelectionStep: React.FC<TimeSelectionStepProps> = ({
   pushSelectedTimecell,
   popUnselectedTimecell,
 }) => {
+  const t = dict.page.createMeeting;
   const shortDaysNames = generateShortDaysNames();
+  const modes = [t.timeModes.same, t.timeModes.perDay, t.timeModes.manual];
+  const descriptions = [
+    t.step.three.description,
+    t.timeModes.perDayDescription,
+    t.timeModes.manualDescription,
+  ];
 
   return (
     <motion.div
@@ -56,125 +57,141 @@ const TimeSelectionStep: React.FC<TimeSelectionStepProps> = ({
       animate={{ x: 0, opacity: 1 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
     >
-      <div className="flex justify-center mb-5">
-        <div className="flex flex-col justify-center items-center w-full">
-          <div className="flex flex-row justify-center items-center gap-4 md:gap-6 mb-8 p-3 rounded-[24px]">
-            <IconButton
-              icon={faCalendar}
-              onClick={() => setTimepickerIndex(0)}
-              isCurrent={timepickerIndex === 0}
-            />
-            <IconButton
-              icon={faCalendarDay}
-              onClick={() => setTimepickerIndex(1)}
-              isCurrent={timepickerIndex === 1}
-            />
-            <IconButton
-              icon={faCalendarDays}
-              onClick={() => setTimepickerIndex(2)}
-              isCurrent={timepickerIndex === 2}
-            />
-          </div>
-          <div
-            className={`self-center overflow-y-auto h-[300px] w-full flex justify-center ${
-              timepickerIndex !== 2 && "p-2"
-            }`}
-          >
-            {timepickerIndex === 0 && (
-              <div className="flex flex-col items-center justify-start gap-6 w-full max-w-md pt-4">
-                <p className="text-gray text-center font-medium px-4 leading-relaxed bg-[#f0f4f8] py-3 rounded-[16px] border border-dark/5 shadow-sm">
-                  {dict.page.createMeeting.step.three.description}
-                </p>
-                <div className="flex items-center justify-center gap-4">
-                  <Timepicker
-                    from={true}
-                    value={mainFromTime}
-                    onChange={(e) => {
-                      const newFrom = +e.target.value;
-                      setMainFromTime(newFrom);
-                      if (newFrom >= mainToTime)
-                        setMainToTime(Math.min(newFrom + 1, 24));
-                    }}
-                  />
-                  <span className="text-gray/50 font-medium"> - </span>
-                  <Timepicker
-                    from={false}
-                    value={mainToTime}
-                    onChange={(e) => {
-                      const newTo = +e.target.value;
-                      setMainToTime(newTo);
-                      if (newTo <= mainFromTime)
-                        setMainFromTime(Math.max(newTo - 1, 0));
-                    }}
-                  />
-                </div>
-              </div>
-            )}
-            {timepickerIndex === 1 && (
-              <div className="flex flex-col gap-4 mt-2">
-                {dailyTimeRanges.map((dayTimeRange) => {
-                  const dateObj = moment(dayTimeRange.date);
-                  const { from, to } = dailyHours[dayTimeRange.date] || {
-                    from: mainFromTime,
-                    to: mainToTime,
-                  };
-                  return (
+      <div className="flex flex-col items-center w-full mb-5">
+        <div
+          role="radiogroup"
+          aria-label={t.timeModes.label}
+          className="flex flex-col sm:flex-row w-full sm:w-auto gap-1 p-1 mb-4 bg-gray-100 rounded-2xl"
+        >
+          {modes.map((label, i) => (
+            <button
+              key={label}
+              type="button"
+              role="radio"
+              aria-checked={timepickerIndex === i}
+              onClick={() => setTimepickerIndex(i)}
+              className={`relative isolate px-3 sm:px-4 py-2 rounded-xl text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
+                timepickerIndex === i
+                  ? "text-dark"
+                  : "text-gray-600 hover:text-dark"
+              }`}
+            >
+              {timepickerIndex === i && <SlidingPill layoutId="time-mode" />}
+              {label}
+            </button>
+          ))}
+        </div>
+        <p className="text-sm text-gray-600 text-center max-w-md mb-4 px-2">
+          {descriptions[timepickerIndex]}
+        </p>
+        <div
+          className={`self-center overflow-y-auto h-[320px] w-full flex justify-center ${
+            timepickerIndex !== 2 ? "p-2" : ""
+          }`}
+        >
+          {timepickerIndex === 0 && (
+            <div className="flex items-center justify-center gap-3 h-fit pt-6">
+              <Timepicker
+                from={true}
+                label={t.timeModes.from}
+                value={mainFromTime}
+                onChange={(e) => {
+                  const newFrom = +e.target.value;
+                  setMainFromTime(newFrom);
+                  if (newFrom >= mainToTime)
+                    setMainToTime(Math.min(newFrom + 1, 24));
+                }}
+              />
+              <span className="text-gray-400 font-medium" aria-hidden>
+                –
+              </span>
+              <Timepicker
+                from={false}
+                label={t.timeModes.to}
+                value={mainToTime}
+                onChange={(e) => {
+                  const newTo = +e.target.value;
+                  setMainToTime(newTo);
+                  if (newTo <= mainFromTime)
+                    setMainFromTime(Math.max(newTo - 1, 0));
+                }}
+              />
+            </div>
+          )}
+          {timepickerIndex === 1 && (
+            <ul className="flex flex-col gap-3 mt-2 w-full max-w-[400px]">
+              {dailyTimeRanges.map((dayTimeRange) => {
+                const dateObj = moment(dayTimeRange.date);
+                const dayLabel = dateObj.format("dddd, D MMMM");
+                const { from, to } = dailyHours[dayTimeRange.date] || {
+                  from: mainFromTime,
+                  to: mainToTime,
+                };
+                return (
+                  <li
+                    key={dayTimeRange.date}
+                    className="flex justify-between w-full items-center gap-3 px-3 sm:px-4 py-3 bg-white rounded-2xl border border-gray-200 shadow-sm"
+                  >
                     <div
-                      key={dayTimeRange.date}
-                      className="flex justify-between w-[310px] md:w-[400px] items-center px-4 py-3 bg-white rounded-[16px] border border-gray/10 shadow-sm"
+                      className="flex flex-col h-12 w-12 shrink-0 bg-primary/10 rounded-xl justify-center items-center"
+                      aria-hidden
                     >
-                      <div className="flex flex-col h-12 w-12 bg-primary/10 rounded-[12px] justify-center items-center">
-                        <p className="text-xl font-bold text-primary leading-none">
-                          {dateObj.date()}
-                        </p>
-                        <p className="text-xs font-semibold text-primary/70 leading-none mt-1 uppercase">
-                          {
-                            shortDaysNames[
-                              dateObj.day() === 0 ? 6 : dateObj.day() - 1
-                            ]
-                          }
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Timepicker
-                          from={true}
-                          value={from}
-                          onChange={(e) =>
-                            handleDailyHourChange(
-                              dayTimeRange.date,
-                              "from",
-                              +e.target.value,
-                            )
-                          }
-                        />
-                        <span className="text-gray/50 font-medium"> - </span>
-                        <Timepicker
-                          from={false}
-                          value={to}
-                          onChange={(e) =>
-                            handleDailyHourChange(
-                              dayTimeRange.date,
-                              "to",
-                              +e.target.value,
-                            )
-                          }
-                        />
-                      </div>
+                      <p className="text-xl font-bold text-dark leading-none">
+                        {dateObj.date()}
+                      </p>
+                      <p className="text-xs font-semibold text-dark/70 leading-none mt-1 uppercase">
+                        {
+                          shortDaysNames[
+                            dateObj.day() === 0 ? 6 : dateObj.day() - 1
+                          ]
+                        }
+                      </p>
                     </div>
-                  );
-                })}
-              </div>
-            )}
-            {timepickerIndex === 2 && (
-              <div className="w-auto max-w-[330px] md:max-w-[700px] lg:max-w-[350px]">
-                <DetailedTimepicker
-                  dates={dailyTimeRanges}
-                  pushSelectedTimecell={pushSelectedTimecell}
-                  popUnselectedTimecell={popUnselectedTimecell}
-                />
-              </div>
-            )}
-          </div>
+                    <div className="flex items-center gap-2">
+                      <Timepicker
+                        id={`from-${dayTimeRange.date}`}
+                        from={true}
+                        label={`${t.timeModes.from} – ${dayLabel}`}
+                        value={from}
+                        onChange={(e) =>
+                          handleDailyHourChange(
+                            dayTimeRange.date,
+                            "from",
+                            +e.target.value,
+                          )
+                        }
+                      />
+                      <span className="text-gray-400 font-medium" aria-hidden>
+                        –
+                      </span>
+                      <Timepicker
+                        id={`to-${dayTimeRange.date}`}
+                        from={false}
+                        label={`${t.timeModes.to} – ${dayLabel}`}
+                        value={to}
+                        onChange={(e) =>
+                          handleDailyHourChange(
+                            dayTimeRange.date,
+                            "to",
+                            +e.target.value,
+                          )
+                        }
+                      />
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+          {timepickerIndex === 2 && (
+            <div className="w-auto max-w-full md:max-w-[700px]">
+              <DetailedTimepicker
+                dates={dailyTimeRanges}
+                pushSelectedTimecell={pushSelectedTimecell}
+                popUnselectedTimecell={popUnselectedTimecell}
+              />
+            </div>
+          )}
         </div>
       </div>
     </motion.div>

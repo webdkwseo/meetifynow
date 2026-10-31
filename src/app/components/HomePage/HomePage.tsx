@@ -2,10 +2,10 @@
 
 import { Locale } from "@root/i18n.config";
 import { motion } from "framer-motion";
-import Link from "next/link";
 import { useMemo } from "react";
 
 import Button from "@/components/Button";
+import RecentMeetings from "@/components/RecentMeetings";
 import { BlurText } from "@/components/ui/BlurText";
 
 // Icons for the "How it works" and Feature Grid sections
@@ -20,26 +20,43 @@ import {
   Zap,
 } from "lucide-react";
 
-export default function HomePage({ dict }: { lang: Locale; dict: any }) {
+// Demo heatmap: number of available people (0–4) per slot, 5 days × 6 slots.
+const DEMO_HEATMAP = [
+  [1, 2, 2, 1, 0],
+  [2, 3, 4, 2, 1],
+  [2, 4, 4, 3, 1],
+  [1, 3, 3, 2, 2],
+  [0, 2, 1, 1, 1],
+  [0, 1, 1, 0, 0],
+];
+const HEAT_CLASSES = [
+  "bg-white border border-gray-200",
+  "bg-light-green",
+  "bg-green/40",
+  "bg-green/70",
+  "bg-green",
+];
+
+export default function HomePage({ lang, dict }: { lang: Locale; dict: any }) {
   const features = useMemo(
     () => [
       {
-        icon: <Zap className="w-6 h-6 text-primary" />,
+        icon: <Zap className="w-6 h-6 text-primary-strong" />,
         title: dict.page.home.infoBlock.fast.title,
         text: dict.page.home.infoBlock.fast.text,
       },
       {
-        icon: <Users className="w-6 h-6 text-primary" />,
+        icon: <Users className="w-6 h-6 text-primary-strong" />,
         title: dict.page.home.infoBlock.everyone.title,
         text: dict.page.home.infoBlock.everyone.text,
       },
       {
-        icon: <Clock className="w-6 h-6 text-primary" />,
+        icon: <Clock className="w-6 h-6 text-primary-strong" />,
         title: dict.page.home.infoBlock.flexibleHours.title,
         text: dict.page.home.infoBlock.flexibleHours.text,
       },
       {
-        icon: <Globe className="w-6 h-6 text-primary" />,
+        icon: <Globe className="w-6 h-6 text-primary-strong" />,
         title: dict.page.home.infoBlock.online.title,
         text: dict.page.home.infoBlock.online.text,
       },
@@ -106,7 +123,7 @@ export default function HomePage({ dict }: { lang: Locale; dict: any }) {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.3, type: "spring" }}
-                className="text-primary inline-block"
+                className="text-primary-strong inline-block"
               >
                 {lastWord}
               </motion.span>
@@ -124,26 +141,36 @@ export default function HomePage({ dict }: { lang: Locale; dict: any }) {
             variants={FADE_DOWN_ANIMATION_VARIANTS}
             className="flex flex-col sm:flex-row items-center gap-4 w-full justify-center"
           >
-            <Link href="meet/new">
-              <Button
-                text={dict.page.home.createButton}
-                className="text-base px-6 py-3 bg-primary hover:bg-primary/90 text-white rounded-full shadow-[0_4px_20px_-5px_rgba(var(--primary),0.4)] hover:-translate-y-0.5 transition-all duration-300 font-medium"
-              />
-            </Link>
-            <Link href="#features">
-              <button className="text-base px-6 py-3 bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-700 rounded-full transition-all duration-300 font-medium whitespace-nowrap shadow-sm hover:-translate-y-0.5">
-                {dict.page.home.hero.learnMore}
-              </button>
-            </Link>
+            <Button
+              href={`/${lang}/meet/new`}
+              text={dict.page.home.createButton}
+              className="text-base px-2 py-1.5 rounded-full"
+            />
+            <a
+              href="#features"
+              className="text-base px-6 py-3 bg-white hover:bg-gray-50 border border-gray-200 text-gray-700 rounded-full transition-colors duration-300 font-medium whitespace-nowrap shadow-sm focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/40"
+            >
+              {dict.page.home.hero.learnMore}
+            </a>
           </motion.div>
         </motion.div>
 
+        <RecentMeetings
+          lang={lang}
+          t={dict.recentMeetings}
+          className="relative z-10 mt-10"
+        />
+
         {/* Floating Quick UI Demo blocks */}
-        <div className="hidden lg:block w-full max-w-6xl mx-auto relative h-32 mt-12 pointer-events-none">
+        {/* Stacked under the CTA on phones, floating on both sides on desktop. */}
+        <div
+          aria-hidden
+          className="flex flex-col items-center gap-6 w-full max-w-6xl mx-auto relative mt-12 px-2 pointer-events-none lg:block lg:h-32 lg:px-0"
+        >
           <motion.div
             animate={{ y: [0, -10, 0] }}
             transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-            className="absolute left-10 top-0 bg-white/90 backdrop-blur border border-gray-200 shadow-xl rounded-2xl p-4 w-64 flex items-center gap-4"
+            className="relative self-start sm:self-center lg:absolute lg:left-10 lg:top-0 bg-white/90 backdrop-blur border border-gray-200 shadow-xl rounded-2xl p-4 w-64 flex items-center gap-4"
           >
             <div className="w-10 h-10 rounded-full bg-green-100 flex justify-center items-center">
               <CheckCircle2 className="w-5 h-5 text-green-600" />
@@ -166,9 +193,9 @@ export default function HomePage({ dict }: { lang: Locale; dict: any }) {
               ease: "easeInOut",
               delay: 1,
             }}
-            className="absolute right-10 top-10 bg-white/90 backdrop-blur border border-gray-200 shadow-xl rounded-2xl p-4 w-64"
+            className="relative self-end sm:self-center lg:absolute lg:right-10 lg:top-10 bg-white/90 backdrop-blur border border-gray-200 shadow-xl rounded-2xl p-4 w-64"
           >
-            <p className="text-xs text-primary font-bold mb-2">
+            <p className="text-xs text-primary-strong font-bold mb-2">
               {dict.page.home.demo.yourChoice}
             </p>
             <div className="space-y-2">
@@ -205,7 +232,7 @@ export default function HomePage({ dict }: { lang: Locale; dict: any }) {
       >
         <div className="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-gray-50/50 to-transparent pointer-events-none" />
         <div className="max-w-6xl mx-auto text-center flex flex-col items-center relative z-10">
-          <p className="text-primary font-semibold mb-4 tracking-wide uppercase text-sm">
+          <p className="text-primary-strong font-semibold mb-4 tracking-wide uppercase text-sm">
             {dict.page.home.features.subtitle}
           </p>
           <BlurText
@@ -218,15 +245,15 @@ export default function HomePage({ dict }: { lang: Locale; dict: any }) {
             {[
               {
                 ...dict.page.home.features.items[0],
-                icon: <Zap className="w-5 h-5 text-primary" />,
+                icon: <Zap className="w-5 h-5 text-primary-strong" />,
               },
               {
                 ...dict.page.home.features.items[1],
-                icon: <CalendarDays className="w-5 h-5 text-primary" />,
+                icon: <CalendarDays className="w-5 h-5 text-primary-strong" />,
               },
               {
                 ...dict.page.home.features.items[2],
-                icon: <CheckCircle2 className="w-5 h-5 text-primary" />,
+                icon: <CheckCircle2 className="w-5 h-5 text-primary-strong" />,
               },
             ].map((item: any, i) => (
               <motion.div
@@ -253,47 +280,63 @@ export default function HomePage({ dict }: { lang: Locale; dict: any }) {
             ))}
           </div>
 
-          {/* Abstract calendar/app representation animated */}
+          {/* Product preview: availability heatmap like on the answer page */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mt-20 w-full max-w-5xl h-72 md:h-96 rounded-[32px] bg-[#f8fafc] border border-gray-200 shadow-2xl shadow-gray-200/50 flex flex-col items-center justify-start relative overflow-hidden pt-8"
+            className="mt-20 w-full max-w-3xl rounded-3xl bg-[#f8fafc] border border-gray-200 shadow-2xl shadow-gray-200/50 p-6 md:p-10 text-left"
           >
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:32px_32px]"></div>
-
-            {/* Mockup Header */}
-            <div className="w-3/4 max-w-2xl h-10 border border-gray-200 flex items-center px-4 gap-2 mb-8 z-10 bg-white/70 backdrop-blur-md rounded-2xl shadow-sm">
-              <div className="w-3 h-3 rounded-full bg-red-400"></div>
-              <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
-              <div className="w-3 h-3 rounded-full bg-green-400"></div>
-              <div className="ml-4 h-4 w-32 bg-gray-200 rounded-full"></div>
-            </div>
-
-            {/* Mockup Grid Data elements animating in */}
-            <div className="w-3/4 max-w-2xl grid grid-cols-4 gap-4 z-10 px-4 md:px-8">
-              {Array.from({ length: 12 }).map((_, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.2 + i * 0.05 }}
-                  className={`h-16 rounded-xl border ${i === 5 || i === 6 ? "bg-primary border-primary shadow-lg shadow-primary/30 flex justify-center items-center" : "bg-white border-gray-100 shadow-sm"}`}
+            <p className="text-sm font-semibold text-gray-900 mb-5">
+              {dict.page.home.demo.heatmapTitle}
+            </p>
+            <div className="grid grid-cols-[auto_repeat(5,minmax(0,1fr))] gap-1.5 md:gap-2">
+              <span />
+              {[0, 1, 2, 3, 4].map((d) => (
+                <span
+                  key={d}
+                  className="text-xs text-gray-500 text-center font-medium"
                 >
-                  {(i === 5 || i === 6) && (
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ delay: 0.8 + i * 0.05, type: "spring" }}
+                  {new Date(2026, 3, 13 + d).toLocaleDateString(lang, {
+                    weekday: "short",
+                  })}
+                </span>
+              ))}
+              {DEMO_HEATMAP.map((row, r) => (
+                <div key={r} className="contents">
+                  <span className="text-xs text-gray-500 pr-2 self-center">
+                    {`${String(10 + Math.floor(r / 2)).padStart(2, "0")}:${r % 2 ? "30" : "00"}`}
+                  </span>
+                  {row.map((level, d) => (
+                    <div
+                      key={d}
+                      className={`h-7 md:h-9 rounded-lg flex items-center justify-center ${HEAT_CLASSES[level]}`}
                     >
-                      <CheckCircle2 className="w-6 h-6 text-white" />
-                    </motion.div>
-                  )}
-                </motion.div>
+                      {level === 4 && (
+                        <CheckCircle2
+                          className="w-4 h-4 text-white"
+                          aria-hidden
+                        />
+                      )}
+                    </div>
+                  ))}
+                </div>
               ))}
             </div>
-
-            <div className="absolute bottom-0 w-full h-1/3 bg-gradient-to-t from-[#f8fafc] to-transparent z-20" />
+            <div className="flex flex-wrap gap-x-5 gap-y-2 mt-6 text-xs text-gray-600">
+              <span className="flex items-center gap-2">
+                <span className="w-3 h-3 rounded bg-green flex items-center justify-center" />
+                {dict.page.home.demo.legendBest}
+              </span>
+              <span className="flex items-center gap-2">
+                <span className="w-3 h-3 rounded bg-green/70" />
+                {dict.page.home.demo.legendMost}
+              </span>
+              <span className="flex items-center gap-2">
+                <span className="w-3 h-3 rounded bg-light-green" />
+                {dict.page.home.demo.legendSome}
+              </span>
+            </div>
           </motion.div>
         </div>
       </section>
@@ -319,7 +362,7 @@ export default function HomePage({ dict }: { lang: Locale; dict: any }) {
                 <div className="p-3 bg-primary/5 rounded-xl mb-5 group-hover:scale-110 group-hover:bg-primary/10 transition-all">
                   {item.icon}
                 </div>
-                <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors">
+                <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-primary-strong transition-colors">
                   {item.title}
                 </h3>
                 <p className="text-gray-600 text-sm leading-relaxed">
@@ -334,7 +377,7 @@ export default function HomePage({ dict }: { lang: Locale; dict: any }) {
       {/* 4. HOW IT WORKS / THREE STEPS */}
       <section className="py-24 md:py-32 px-5 relative w-full flex justify-center bg-white">
         <div className="max-w-5xl w-full flex flex-col items-center text-center">
-          <p className="text-primary font-semibold mb-4 tracking-wide uppercase text-sm">
+          <p className="text-primary-strong font-semibold mb-4 tracking-wide uppercase text-sm">
             {dict.page.home.howItWorks.subtitle}
           </p>
           <BlurText
@@ -357,7 +400,7 @@ export default function HomePage({ dict }: { lang: Locale; dict: any }) {
                 className="bg-white border border-gray-100 hover:border-gray-200 hover:shadow-xl hover:shadow-gray-200/50 transition-all p-8 rounded-3xl relative overflow-hidden"
               >
                 <div className="absolute -top-4 -right-4 p-4 opacity-5 pointer-events-none">
-                  <span className="text-9xl font-black text-primary">
+                  <span className="text-9xl font-black text-primary-strong">
                     {i + 1}
                   </span>
                 </div>
@@ -386,14 +429,19 @@ export default function HomePage({ dict }: { lang: Locale; dict: any }) {
           <p className="text-lg text-gray-600 mb-10 max-w-xl">
             {dict.page.home.cta.description}
           </p>
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Link href="meet/new">
-              <button className="text-base px-8 py-3.5 bg-primary hover:bg-primary/90 text-white rounded-full font-bold shadow-[0_0_40px_-5px_rgba(var(--primary),0.4)] transition-all duration-300 group flex items-center gap-2">
+          <Button
+            href={`/${lang}/meet/new`}
+            className="text-base px-3 py-2 rounded-full"
+            text={
+              <>
                 {dict.page.home.cta.button}
-                <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
-            </Link>
-          </motion.div>
+                <ChevronRight
+                  className="w-5 h-5 group-hover:translate-x-1 transition-transform"
+                  aria-hidden
+                />
+              </>
+            }
+          />
         </div>
       </section>
     </main>

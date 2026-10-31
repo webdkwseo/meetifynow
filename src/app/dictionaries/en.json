@@ -1,8 +1,8 @@
 {
   "website": {
     "title": "MeetifyNow - Simple Meeting Scheduling Tool",
-    "description": "MeetifyNow is a simple-to-use meeting scheduling tool that doesn't require logging in. The perfect solution for quick online scheduling!",
-    "url": "https://meetifynow.com/pl"
+    "description": "MeetifyNow helps teams and clients agree on a meeting time fast. Participants answer through a link, no account needed.",
+    "url": "https://meetifynow.com/en"
   },
   "button": {
     "homePage": "Homepage",
@@ -11,8 +11,20 @@
     "createMeeting": "Create Meeting",
     "copyLink": {
       "copy": "Copy Link",
-      "copied": "Copied!"
-    }
+      "copied": "Copied!",
+      "failed": "Couldn't copy",
+      "share": "Share link"
+    },
+    "submit": "Send",
+    "confirm": "Confirm",
+    "cancel": "Cancel"
+  },
+  "nav": {
+    "home": "MeetifyNow – home",
+    "newMeeting": "New meeting",
+    "dashboard": "Dashboard",
+    "login": "Log in",
+    "language": "Language"
   },
   "page": {
     "error": {
@@ -26,17 +38,17 @@
       }
     },
     "home": {
-      "headerText": "MeetifyNow is a simple-to-use meeting scheduling tool that doesn't require logging in.",
-      "title": "Meeting scheduling has never been easier!",
-      "createButton": "Create meeting",
+      "headerText": "No more back-and-forth when scheduling project meetings. Fewer messages to lock in a date.",
+      "title": "Schedule meetings faster — with your team and your clients",
+      "createButton": "Start scheduling",
       "infoBlock": {
         "fast": {
-          "title": "Fast and easy",
-          "text": "MeetifyNow is your way to schedule meetings quickly and easily! Create them in seconds. Our app is easy to use and will make organizing meetings a pleasure."
+          "title": "Fewer messages",
+          "text": "One link instead of long email threads. Lock in a project meeting in minutes, not days."
         },
         "everyone": {
-          "title": "For everyone",
-          "text": "Whether you're having a business meeting or a social gathering, use MeetifyNow and enjoy a fast, simple, and fun planning process!"
+          "title": "With your team and clients",
+          "text": "Agree on meeting times with clients without forcing them to sign up for yet another platform."
         },
         "time": {
           "title": "Don't waste time logging in",
@@ -44,7 +56,7 @@
         },
         "online": {
           "title": "Select availability online",
-          "text": "Our app allows you to select your availability for a meeting, even if you are only available remotely! Fully customize your meeting schedule to suit your needs."
+          "text": "Participants can mark the hours when they're only available remotely, so you can see right away whether the meeting should be online."
         },
         "flexibleHours": {
           "title": "Custom Hours",
@@ -54,7 +66,11 @@
       "demo": {
         "date": "Thu, 18 Apr",
         "peopleAvailable": "3 people available",
-        "yourChoice": "Your choice"
+        "yourChoice": "Your choice",
+        "heatmapTitle": "Team availability",
+        "legendMost": "Most people",
+        "legendSome": "Some people",
+        "legendBest": "Best slot"
       },
       "hero": {
         "learnMore": "Find out more"
@@ -64,8 +80,8 @@
         "title": "Plan meetings in a flash",
         "items": [
           {
-            "title": "No signup required",
-            "desc": "Start planning right away, without wasting time creating accounts and passwords."
+            "title": "No account for participants",
+            "desc": "Participants just type their name and pick time slots. No accounts, no passwords."
           },
           {
             "title": "Calendar view",
@@ -91,7 +107,7 @@
           },
           {
             "title": "2. Send and vote",
-            "desc": "Share the view with your group. Everyone votes anonymously and efficiently."
+            "desc": "Share the link with your group. Everyone types their name and picks their hours – no signup."
           },
           {
             "title": "3. Perfect time",
@@ -101,7 +117,7 @@
       },
       "cta": {
         "title": "Simple to use. Powerful in action.",
-        "description": "Stop exchanging dozens of messages searching for a single matching date. Join satisfied users.",
+        "description": "Stop exchanging dozens of messages searching for a single matching date.",
         "button": "Start planning"
       }
     },
@@ -146,12 +162,6 @@
       }
     },
     "auth": {
-      "hamburgerMenu": {
-        "profile": "Profile",
-        "createMeeting": "Create meeting",
-        "logout": "Logout",
-        "login": "Log in"
-      },
       "input": {
         "name": {
           "label": "Name",
@@ -188,8 +198,50 @@
       }
     },
     "createMeeting": {
-      "title": "Create a new meeting",
-      "createButton": "Create meeting",
+      "title": "New meeting",
+      "createButton": "Start scheduling",
+      "submitButton": "Create meeting",
+      "templates": {
+        "label": "Name template (optional)",
+        "kickoff": "Kickoff meeting",
+        "status": "Project status",
+        "review": "Work review",
+        "demo": "Demo"
+      },
+      "advanced": "Place and link (optional)",
+      "requiredParticipants": {
+        "label": "Required participants",
+        "optional": "(optional)",
+        "hint": "Type a name and press Enter. Recommended slots will only include times when all of these people are available – participants must answer using the same name.",
+        "fromTeam": "Add from your team:",
+        "placeholder": "e.g. Anna",
+        "add": "Add",
+        "remove": "Remove: {name}"
+      },
+      "private": {
+        "label": "Private meeting",
+        "hint": "Only workspace members can access it"
+      },
+      "dates": {
+        "selected": "Selected days: {count} / 15",
+        "prevMonth": "Previous month",
+        "nextMonth": "Next month",
+        "hint": "Click days or drag across the calendar.",
+        "quick": {
+          "nextWorkdays": "Next 5 working days",
+          "nextWeek": "Next week"
+        }
+      },
+      "timeModes": {
+        "label": "How to pick hours",
+        "same": "Same hours",
+        "perDay": "Different per day",
+        "manual": "Pick manually",
+        "perDayDescription": "Set a separate time range for each selected day.",
+        "manualDescription": "Click or drag across the grid to add or remove individual half-hours.",
+        "from": "From",
+        "to": "To"
+      },
       "error": {
         "createFailed": "Failed to create meeting. Please try again."
       },
@@ -214,7 +266,7 @@
       "validate": {
         "meeting__name": {
           "required": "Meeting name is required.",
-          "min": "Meeting name must be at least 4 characters long.",
+          "min": "Meeting name must be at least 2 characters long.",
           "max": "Meeting name can have a maximum of 50 characters."
         },
         "meeting__place": {
@@ -229,31 +281,96 @@
       "input": {
         "meeting__name": {
           "label": "Meeting name",
-          "placeholder": "📝 Meeting name"
+          "placeholder": "e.g. Project sync"
         },
         "meeting__place": {
           "label": "Meeting place",
-          "placeholder": "🏢 Meeting place"
+          "placeholder": "e.g. Office, room 2"
         },
         "meeting__link": {
           "label": "Meeting link",
-          "placeholder": "🔗 Meeting link"
+          "placeholder": "https://…"
+        }
+      },
+      "duration": {
+        "label": "Duration",
+        "options": {
+          "30": "30 min",
+          "60": "1 hour",
+          "90": "1.5 hours",
+          "120": "2 hours"
         }
       }
     },
     "answerMeeting": {
+      "ogDescription": "Join the meeting and mark your availability.",
       "nobodyAvailable": "Nobody is available on the selected date 😥",
       "clickToReveal": "Click on a time to see availability",
       "hoverToReveal": "Hover over the hour to see availability",
       "toggleButton": {
-        "showAvailability": "Show availability 👀",
-        "answerMeeting": "Select availability ☑️"
+        "showAvailability": "See results",
+        "answerMeeting": "Mark availability"
       },
       "input": {
         "name": {
           "label": "Your name",
-          "placeholder": "📝 Your name"
+          "placeholder": "e.g. Anna"
         }
+      },
+      "mode": {
+        "label": "Marking as",
+        "offline": "In person",
+        "online": "Online"
+      },
+      "gridHint": "Click or drag across the hours to select them. Click a day or a time to select the whole column or row. Click a selected slot again to clear it.",
+      "legend": {
+        "title": "Legend",
+        "yourOffline": "Your pick – in person",
+        "yourOnline": "Your pick – online",
+        "best": "Most people available",
+        "unavailable": "Not part of the poll",
+        "outsideYours": "Outside your availability",
+        "conflict": "You have another meeting",
+        "heat": "Darker means more people available",
+        "mostlyOnline": "Mostly online"
+      },
+      "cellLabel": "{date}, {time} – available: {count}",
+      "meetingLink": "Meeting link",
+      "answeringAs": "Answering as:",
+      "requiredHint": "The organizer is waiting for answers from:",
+      "requiredHintAction": "Click your name to fill it in.",
+      "finalized": {
+        "title": "Date confirmed",
+        "participantInfo": "The organizer picked the meeting date. Add it to your calendar.",
+        "change": "Change date",
+        "confirmChange": "Undo the confirmed date? The poll will reopen for picking a date.",
+        "changeFailed": "Couldn't reset the date.",
+        "duration": "Duration: {minutes} min",
+        "addToGoogle": "Add to Google Calendar",
+        "downloadIcs": "Download .ics",
+        "showGrid": "Change your availability"
+      },
+      "recommended": {
+        "title": "Recommended slots",
+        "requiredNote": "(all required participants available)",
+        "available": "available: {count}/{total}",
+        "outside": "outside your availability",
+        "finalize": "Confirm",
+        "confirmFinalize": "Confirm {date}?",
+        "finalizeFailed": "Couldn't confirm the date.",
+        "fewAnswers": "Only one answer so far — recommendations get better as more people respond.",
+        "noRequiredMatch": "No time works for every required person. Closest: {date} — missing: {names}.",
+        "confirmFinalizeHint": "The organizer and workspace members get an e-mail with the date and a calendar file.",
+        "confirmOutside": "This time is outside your availability or too close to another meeting. You can still confirm it.",
+        "finalizeAnyway": "Confirm anyway",
+        "titlePublic": "Best times"
+      },
+      "workspace": {
+        "participants": "Workspace participants ({answered}/{total})",
+        "missing": "no answer",
+        "sendReminder": "Send reminder ({count})",
+        "sending": "Sending…",
+        "sent": "Sent!"
       },
       "validate": {
         "name": {
@@ -262,40 +379,220 @@
         }
       },
       "error": {
-        "alreadyAnswered": "You have already answered this meeting.",
+        "alreadyAnswered": "An answer from this browser has already been sent.",
+        "alreadyTaken": "This name is already taken. Please use another one.",
         "submitFailed": "Failed to send your answer. Please try again."
       },
       "success": "Your availability has been sent!",
-      "firstToAnswer": "Be the first to respond! Select your availability on the right.",
-      "responseCount": "responses",
-      "help_popup": {
-        "line1": {
-          "segment1": "Not sure what the",
-          "segment2": " colors",
-          "segment3": " mean? It's easy!"
-        },
-        "line2": "Here's what they represent 👇",
-        "showMode": {
-          "title": "While selecting 👀:",
-          "green": "- Offline availability.",
-          "gold": "- Online availability."
-        },
-        "answerMode": {
-          "title": "When checking ☑️:",
-          "green": "- Most people available.",
-          "gold": "- Most people available online.",
-          "lightGreen": "- Date with less availability."
-        }
+      "sending": "Sending…",
+      "firstToAnswer": "Nobody has answered yet. Be the first to mark your availability!",
+      "responseCount": {
+        "one": "{count} response",
+        "other": "{count} responses"
       },
       "button": {
         "submit": "Send",
         "update": "Update answer",
         "clearAnswers": "Unselect all"
-      }
+      },
+      "previewNote": "numbers include your unsent picks",
+      "timezoneNote": "Times in your zone: {tz} · the meeting lasts {minutes} min.",
+      "organizerTimezone": "Organizer: {tz}.",
+      "selectDay": "Select or clear the whole day: {day}",
+      "selectDayHint": "Click to select the whole day",
+      "selectHour": "Select or clear {time} on every day",
+      "selectHourHint": "Click to select this time on every day",
+      "help": {
+        "toggle": "How it works (legend)"
+      },
+      "savedNotice": "Your answer is saved — you can change it any time. Send the link to the other participants.",
+      "pastNotice": "All times in this poll are in the past. Create a new meeting to pick another date.",
+      "notFoundTitle": "Meeting not found"
     },
     "answerNotFoundPage": {
       "title": "No such appointment found 😥",
       "heading": "You can always create your own 😎"
+    },
+    "dashboard": {
+      "fallbackTitle": "Dashboard",
+      "newMeeting": "New meeting",
+      "tabs": {
+        "label": "Dashboard sections",
+        "meetings": "Meetings",
+        "overview": "Overview",
+        "team": "Team",
+        "settings": "Settings",
+        "availability": "Availability"
+      },
+      "roles": {
+        "owner": "Owner",
+        "admin": "Admin",
+        "member": "Member"
+      },
+      "workspaceBanner": {
+        "title": "Manage meetings with your team",
+        "text": "Create an organization, invite colleagues and coordinate dates without message chaos.",
+        "button": "Create"
+      },
+      "meetings": {
+        "pending": "Pending",
+        "noActive": "No meetings waiting for answers.",
+        "noMeetings": "You don't have any meetings yet.",
+        "createFirst": "Create your first meeting",
+        "org": "Organization",
+        "mine": "Mine",
+        "canPick": "Ready to pick a date",
+        "awaiting": "Waiting for answers",
+        "answers": {
+          "one": "{count} answer",
+          "other": "{count} answers"
+        },
+        "missing": "{count} missing",
+        "copyLink": "Copy poll link",
+        "copied": "Copied!",
+        "cancel": "Cancel meeting",
+        "confirmCancel": "Cancel “{name}”? This can't be undone.",
+        "pickDate": "Pick a date",
+        "details": "Details",
+        "markNoShow": "Didn't happen",
+        "scheduled": "Scheduled",
+        "completed": "Completed",
+        "noShow": "No-show",
+        "cancelled": "Cancelled",
+        "collecting": "Collecting answers",
+        "createNext": "New meeting",
+        "undoNoShow": "Undo"
+      },
+      "overview": {
+        "title": "Coordination – {name}",
+        "total": "Total meetings",
+        "totalSub": "all meetings",
+        "closed": "Closed",
+        "closedSub": "date confirmed",
+        "avgClose": "Avg. coordination time",
+        "avgCloseSub": "from creation to close",
+        "avgResponses": "Avg. answers",
+        "avgResponsesSub": "per meeting",
+        "avgLatency": "Avg. response time",
+        "avgLatencySub": "from creation to answer",
+        "hours": "{count} h",
+        "days": "{count} d",
+        "empty": "No meetings yet. Create your first meeting to see metrics.",
+        "underHour": "< 1 h"
+      },
+      "team": {
+        "members": "Active members ({count})",
+        "unknownUser": "User #{id}",
+        "remove": "Remove from workspace",
+        "confirmRemove": "Remove {name} from the workspace?",
+        "pendingInvites": "Pending invitations ({count})",
+        "expires": "expires {date}",
+        "copyInvite": "Copy invitation link",
+        "resend": "Resend",
+        "revoke": "Revoke invitation",
+        "confirmRevoke": "Revoke the invitation for {email}?",
+        "sentTo": "Invitation sent to",
+        "copy": "Copy",
+        "copied": "Copied!",
+        "inviteTitle": "Invite a new member",
+        "emailLabel": "Email address",
+        "emailPlaceholder": "name@company.com",
+        "roleLabel": "Role",
+        "invalidEmail": "Please enter a valid email address.",
+        "inviteFailed": "Couldn't send the invitation.",
+        "sending": "Sending…",
+        "send": "Send invitation"
+      },
+      "settings": {
+        "subtitle": "Workspace settings",
+        "name": "Workspace name",
+        "save": "Save",
+        "saving": "Saving…",
+        "brandColor": "Brand color",
+        "colorOption": "Color {color}"
+      },
+      "onboarding": {
+        "title": "Create a workspace",
+        "subtitle": "A shared place to coordinate your team's meetings",
+        "nameLabel": "Company or team name",
+        "namePlaceholder": "e.g. XYZ Agency",
+        "nameError": "Name must be at least 2 characters long.",
+        "brandColor": "Brand color",
+        "preview": "Workspace preview",
+        "creating": "Creating…",
+        "submit": "Create workspace"
+      },
+      "availability": {
+        "title": "Availability rules",
+        "description": "Set when you're usually available for meetings. These rules are used when recommending and confirming dates.",
+        "timezone": "Time zone",
+        "weekly": "Weekly schedule",
+        "days": [
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday"
+        ],
+        "unavailable": "unavailable",
+        "toggleDay": "Availability: {day}",
+        "from": "From ({day})",
+        "to": "To ({day})",
+        "invalidRange": "{day}: end must be later than start.",
+        "limits": "Buffers and limits",
+        "bufferBefore": "Buffer before meeting",
+        "bufferAfter": "Buffer after meeting",
+        "minNotice": "Minimum notice",
+        "maxHorizon": "Maximum horizon",
+        "minutes": "min",
+        "daysUnit": "days",
+        "limitsInfo": "These limits are checked when you confirm a date: buffers protect the time between meetings, and minimum notice is the shortest time from now a meeting can be booked. You can still confirm a time outside them after an extra confirmation.",
+        "save": "Save settings",
+        "saving": "Saving…",
+        "saved": "Saved!",
+        "saveFailed": "Couldn't save.",
+        "exceptions": "Exceptions (blocked days)",
+        "exceptionsHint": "Block days when you can't take meetings. They're saved immediately — no need to click “Save”.",
+        "exceptionDate": "Exception date",
+        "add": "Add",
+        "blocked": "blocked",
+        "customHours": "custom hours",
+        "removeException": "Remove exception",
+        "noExceptions": "No exceptions.",
+        "error": "Error"
+      }
+    },
+    "invitation": {
+      "invalidTitle": "Invalid invitation",
+      "invalidText": "This invitation link has expired, been revoked or doesn't exist.",
+      "expiredTitle": "Invitation expired",
+      "expiredText": "Ask the workspace admin for a new invitation.",
+      "welcome": "Welcome aboard!",
+      "joined": "You've joined",
+      "goToDashboard": "Go to dashboard",
+      "title": "Workspace invitation",
+      "invitedTo": "You've been invited to",
+      "as": "as",
+      "loginPrompt": "Log in to accept the invitation.",
+      "login": "Log in",
+      "accept": "Accept invitation",
+      "acceptFailed": "Couldn't accept the invitation.",
+      "home": "Homepage"
+    },
+    "reschedule": {
+      "metaTitle": "Change date — MeetifyNow",
+      "title": "Change the meeting date",
+      "cancelledTitle": "Meeting cancelled",
+      "cancelledText": "This meeting has been cancelled. Its date can't be changed.",
+      "noDates": "No dates available.",
+      "pick": "Pick a new date:",
+      "current": "(current)",
+      "confirm": "Confirm new date",
+      "saving": "Saving…",
+      "success": "Date updated!",
+      "failed": "Couldn't change the date."
     }
   },
   "footer": {
@@ -304,5 +601,47 @@
     "developerTitle": "WebDKW Web Development",
     "developerAlt": "Interactive agency, web development WebDKW",
     "rights": "meetifynow.com"
+  },
+  "errors": {
+    "GENERIC": "Something went wrong. Please try again.",
+    "UNAUTHENTICATED": "Sign in to do this.",
+    "FORBIDDEN": "You don't have permission to do this.",
+    "NOT_FOUND": "Not found — it may have been removed.",
+    "NAME_TOO_SHORT": "Meeting name must be at least 2 characters long.",
+    "NAME_TOO_LONG": "Meeting name can have a maximum of 50 characters.",
+    "PLACE_TOO_LONG": "Place can have a maximum of 100 characters.",
+    "LINK_TOO_LONG": "The link is too long.",
+    "DATES_REQUIRED": "Pick at least one day.",
+    "DATES_TOO_MANY": "You can pick up to 15 days.",
+    "INVALID_DURATION": "Pick a duration from the list.",
+    "USERNAME_REQUIRED": "Enter your name.",
+    "USERNAME_TOO_LONG": "Name can have a maximum of 20 characters.",
+    "USERNAME_TAKEN": "This name is already taken. Enter another one.",
+    "ALREADY_ANSWERED": "You've already answered this poll — you can edit your answer.",
+    "ANSWER_NOT_FOUND": "Your answer wasn't found. Refresh the page.",
+    "MEETING_CANCELLED": "This meeting was cancelled.",
+    "NO_FINAL_DATE": "Confirm the meeting date first.",
+    "SLOT_NOT_IN_POLL": "This time isn't part of the poll.",
+    "OUTSIDE_AVAILABILITY": "This time is outside your availability or clashes with another meeting.",
+    "RATE_LIMITED": "A reminder was already sent. You can send another one in an hour.",
+    "WORKSPACE_NAME_TOO_SHORT": "Workspace name must be at least 2 characters long.",
+    "WORKSPACE_NAME_TOO_LONG": "Workspace name can have a maximum of 60 characters.",
+    "WORKSPACE_EXISTS": "You already have a workspace.",
+    "INVALID_COLOR": "Invalid colour.",
+    "INVALID_EMAIL": "Invalid e-mail address.",
+    "INVALID_TIMEZONE": "Invalid time zone.",
+    "INVALID_SCHEDULE": "Check the hours — the end must be after the start.",
+    "INVITE_EXISTS": "An active invitation for this address already exists.",
+    "INVITE_INACTIVE": "This invitation is no longer active.",
+    "INVITE_EXPIRED": "This invitation has expired. Ask for a new one.",
+    "ALREADY_MEMBER": "You're already a member of this workspace.",
+    "CANNOT_REMOVE_OWNER": "The workspace owner can't be removed."
+  },
+  "recentMeetings": {
+    "title": "Your recent meetings",
+    "hint": "Saved in this browser only.",
+    "created": "Created",
+    "answered": "Your answer",
+    "remove": "Remove from list: {name}"
   }
 }
