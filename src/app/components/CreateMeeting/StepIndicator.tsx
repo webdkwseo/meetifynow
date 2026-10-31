@@ -8,11 +8,11 @@ export default function StepIndicator(props: {
   return (
     <li className="flex items-center">
       <div
-        className={`flex items-center justify-center h-10 w-10 sm:h-12 sm:w-12 rounded-[16px] transition-all duration-500 ease-in-out font-bold text-sm sm:text-base ${
+        className={`flex items-center justify-center h-10 w-10 sm:h-12 sm:w-12 rounded-2xl transition-all duration-500 ease-in-out font-bold text-sm sm:text-base ${
           props.isCompleted
-            ? "bg-primary text-white shadow-md shadow-primary/20 scale-100"
+            ? "bg-primary-strong text-white shadow-md shadow-primary/20 scale-100"
             : props.isCurrent
-              ? "bg-primary/10 text-primary border-2 border-primary scale-110 shadow-sm"
+              ? "bg-primary/10 text-primary-strong border-2 border-primary scale-110 shadow-sm"
               : "bg-gray/10 text-gray/50 scale-95"
         }`}
       >

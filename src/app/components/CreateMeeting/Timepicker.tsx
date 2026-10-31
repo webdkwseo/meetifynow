@@ -2,42 +2,25 @@ const Timepicker = (props: {
   from: boolean;
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   value: number;
+  label: string;
+  id?: string;
 }) => {
-  const fromTime = 1;
-  const toTime = 23;
-
-  const renderOptions = () => {
-    const optionsElements = [];
-    // For start timepicker
-    if (props.from) {
-      for (let i = 0; i <= toTime; i++) {
-        const optionElement = (
-          <option key={i} value={i}>{`${i < 10 ? `0${i}` : i}:00`}</option>
-        );
-        optionsElements.push(optionElement);
-      }
-    }
-    // For end timepicker
-    if (!props.from) {
-      for (let i = fromTime; i <= 24; i++) {
-        const optionElement = (
-          <option key={i} value={i}>{`${i < 10 ? `0${i}` : i}:00`}</option>
-        );
-        optionsElements.push(optionElement);
-      }
-    }
-
-    return optionsElements;
-  };
+  // "From" offers 00:00–23:00, "to" offers 01:00–24:00.
+  const hours = props.from
+    ? Array.from({ length: 24 }, (_, i) => i)
+    : Array.from({ length: 24 }, (_, i) => i + 1);
 
   return (
     <select
-      id={props.from ? "timepicker__from" : "timepicker__to"}
-      className="p-2 text-lg text-dark border border-gray rounded-lg focus:outline-none focus:ring focus:border-primary transition-all"
+      id={props.id ?? (props.from ? "timepicker__from" : "timepicker__to")}
+      aria-label={props.label}
+      className="p-2 text-lg text-dark bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all"
       value={props.value}
       onChange={props.onChange}
     >
-      {renderOptions()}
+      {hours.map((i) => (
+        <option key={i} value={i}>{`${String(i).padStart(2, "0")}:00`}</option>
+      ))}
     </select>
   );
 };

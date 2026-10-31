@@ -4,7 +4,6 @@ import Title from "@/components/Title";
 import { getDictionary } from "@/lib/dictionary";
 import { Locale } from "@root/i18n.config";
 import { headers } from "next/headers";
-import Link from "next/link";
 
 export default async function AnswetNotFound() {
   const expectedHeaders = await headers();
@@ -15,9 +14,10 @@ export default async function AnswetNotFound() {
     <div className="flex flex-1 flex-col justify-center items-center h-full mt-20 mx-10 lg:m-0">
       <Title text={dict.page.answerNotFoundPage.title} />
       <Heading text={dict.page.answerNotFoundPage.heading} />
-      <Link href="/meet/new">
-        <Button text={dict.page.createMeeting.createButton} />
-      </Link>
+      <Button
+        href={`/${lang}/meet/new`}
+        text={dict.page.createMeeting.createButton}
+      />
     </div>
   );
 }

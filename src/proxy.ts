@@ -1,11 +1,24 @@
-import { NextRequest, NextResponse } from "next/server";
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { match as matchLocale } from "@formatjs/intl-localematcher";
 import { i18n } from "@root/i18n.config";
 import Negotiator from "negotiator";
+import { NextRequest, NextResponse } from "next/server";
+import { features } from "./app/lib/features";
 
 const headerName = "X-Language-Preference";
 
+const isProtectedRoute = createRouteMatcher([
+  "/:lang/dashboard",
+  "/:lang/dashboard/:path*",
+  // Organizer-only; the mutation checks the role too.
+  "/:lang/meet/:id/reschedule",
+]);
+
 function getLocale(req: NextRequest): string | "" {
+  // Explicit choice from the language switch wins over Accept-Language.
+  const chosen = req.cookies.get("lang")?.value;
+  if (chosen && (i18n.locales as string[]).includes(chosen)) return chosen;
+
   const negotiatorHeaders: Record<string, string> = {};
   req.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
 
@@ -16,12 +29,10 @@ function getLocale(req: NextRequest): string | "" {
   return locale;
 }
 
-export async function proxy(req: NextRequest) {
+function handleLocale(req: NextRequest) {
   const locales: string[] = i18n.locales;
   let siteLocale = i18n.defaultLocale;
 
-  // Get the locale from the request and set headers
-  let response = NextResponse.next();
   const { pathname } = req.nextUrl;
   const pathnameHasLocale = locales.some((locale) => {
     siteLocale = locale;
@@ -29,11 +40,12 @@ export async function proxy(req: NextRequest) {
   });
 
   if (pathnameHasLocale) {
+    const response = NextResponse.next();
     response.headers.set(headerName, siteLocale);
     return response;
   }
 
-  // Skip middleware for public assets
+  // Skip for public assets
   const isPublicAsset =
     pathname.startsWith("/imgs") || pathname === "/imgs/og-image.webp";
   if (isPublicAsset) {
@@ -51,6 +63,25 @@ export async function proxy(req: NextRequest) {
     },
   });
 }
+
+// Account-only pages; sent home while sign-in is switched off.
+const isAccountRoute = createRouteMatcher([
+  "/:lang/dashboard",
+  "/:lang/dashboard/:path*",
+  "/:lang/join/:path*",
+  "/:lang/meet/:id/reschedule",
+]);
+
+export default clerkMiddleware(async (auth, req: NextRequest) => {
+  if (!features.auth && isAccountRoute(req)) {
+    const lang = req.nextUrl.pathname.split("/")[1];
+    return NextResponse.redirect(new URL(`/${lang}/`, req.url));
+  }
+  if (isProtectedRoute(req)) {
+    await auth.protect();
+  }
+  return handleLocale(req);
+});
 
 export const config = {
   matcher: [

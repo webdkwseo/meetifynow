@@ -1,47 +1,58 @@
-import { faLink } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+"use client";
+
+import { useCopy } from "@/hooks/useCopy";
+import { Check, Link2, Share2 } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function CopyLinkButton(props: {
-  link?: string;
+  /** Defaults to the current page URL. */
   url?: string;
+  /** When set, phones get the native share sheet (WhatsApp, Messenger…) instead of copying. */
+  shareTitle?: string;
   className?: string;
   dict: any;
 }) {
-  const copyToClipboard = () => {
-    let urlToCopy: string;
+  const { copy, copied, failed } = useCopy();
+  const t = props.dict.button.copyLink;
+  const isCopied = copied !== null;
+  const [canShare, setCanShare] = useState(false);
 
-    if (props.url) {
-      urlToCopy = props.url;
-    } else {
-      const currentUrl = window.location.href;
-      const urlObject = new URL(currentUrl);
-      const domainName = urlObject.hostname;
-      const segment = "/meet/";
-      const segmentIndex = currentUrl.indexOf(segment);
-      const urlWithoutSegment =
-        segmentIndex !== -1
-          ? currentUrl.slice(segmentIndex + segment.length)
-          : currentUrl;
-      urlToCopy = `https://${domainName}/meet/${urlWithoutSegment}`;
+  // Feature-detect after mount; desktop browsers with navigator.share keep copying.
+  useEffect(() => {
+    setCanShare(
+      !!props.shareTitle &&
+        typeof navigator.share === "function" &&
+        window.matchMedia("(pointer: coarse)").matches,
+    );
+  }, [props.shareTitle]);
+
+  const handleClick = async () => {
+    const url = props.url ?? window.location.href;
+    if (canShare) {
+      try {
+        await navigator.share({ title: props.shareTitle, url });
+        return;
+      } catch (e) {
+        if ((e as Error)?.name === "AbortError") return; // user closed the sheet
+      }
     }
-
-    navigator.clipboard.writeText(urlToCopy);
+    copy(url, "link");
   };
+
+  const Icon = isCopied ? Check : canShare ? Share2 : Link2;
 
   return (
     <button
       type="button"
-      className={`group relative display bg-white hover:bg-gray/5 active:bg-gray/10 text-dark font-medium w-fit px-5 py-2.5 rounded-[16px] self-center border border-gray/10 shadow-sm transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${props.className ?? ""}`}
-      onClick={copyToClipboard}
+      onClick={handleClick}
+      className={`inline-flex items-center gap-2 bg-white hover:bg-gray-50 active:bg-gray-100 text-dark font-medium w-fit px-5 py-2.5 rounded-2xl self-center border border-dark/10 shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${props.className ?? ""}`}
     >
-      <p className="absolute opacity-0 group-focus:animate-copy-button-success w-full left-0">
-        {props.dict.button.copyLink.copied}
-      </p>
-      <span className="flex items-center group-focus:animate-copy-button">
-        {props.dict.button.copyLink.copy}
-        <div className="ml-2 transition-all group-hover:rotate-45">
-          <FontAwesomeIcon icon={faLink} />
-        </div>
+      <Icon
+        className={`w-4 h-4 ${isCopied ? "text-green-700" : ""}`}
+        aria-hidden
+      />
+      <span aria-live="polite">
+        {isCopied ? t.copied : failed ? t.failed : canShare ? t.share : t.copy}
       </span>
     </button>
   );

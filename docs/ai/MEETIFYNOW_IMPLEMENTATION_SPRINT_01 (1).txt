@@ -1,0 +1,24 @@
+Sprint 01 — Core Scheduling
+
+Zakres wyłącznie na ten sprint:
+1. Zmapuj repo i znajdź pliki odpowiadające za landing, create meeting flow i public response flow.
+2. Uprość flow tworzenia spotkania:
+   - template’y: kickoff, status, review, demo,
+   - minimum pól,
+   - ukryte advanced settings,
+   - jasne CTA.
+3. Upewnij się, że publiczny udział bez logowania jest prosty i czytelny.
+4. Nie dotykaj jeszcze CRM, Slack ani zaawansowanej analityki.
+
+Copy do użycia:
+- Ustalaj terminy spotkań szybciej — z zespołem i klientem
+- Koniec chaosu w umawianiu spotkań projektowych.
+- Udział bez logowania dla uczestników
+- Mniej wiadomości potrzebnych do zamknięcia terminu
+- Zacznij ustalać termin
+
+Po wdrożeniu:
+- zrób self-review,
+- wypisz zmienione pliki,
+- opisz 3 główne decyzje UX,
+- zakończ sprint.

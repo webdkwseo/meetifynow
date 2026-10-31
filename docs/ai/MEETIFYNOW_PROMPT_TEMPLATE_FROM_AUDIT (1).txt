@@ -1,0 +1,40 @@
+Otrzymaliśmy nowe cele biznesowe od Head of Growth. Wdrażamy architekturę wysokiej konwersji dla MeetifyNow.
+
+Poniżej traktuj materiał jako źródło prawdy dla tej iteracji. Nie przypominaj o stacku technologicznym ani ogólnych zasadach projektu. Skup się wyłącznie na logice biznesowej, intencji zmian, wpływie na konwersję i drobnych sugestiach architektonicznych UI/UX.
+
+Instrukcja pracy:
+1. Najpierw autonomicznie przeszukaj strukturę plików i znajdź obszary odpowiedzialne za stronę główną, onboarding, formularze, widoki publiczne bez logowania, dashboard i SEO.
+2. Potwierdź w kodzie istniejące pliki, komponenty i modele danych. Nie zgaduj schematu.
+3. Realizuj wyłącznie w trybie iteracyjnym: Task 1 -> testy -> raport -> stop. Nie przechodź do kolejnego tasku bez zakończenia poprzedniego.
+4. Wstrzyknij dokładny copywriting podany niżej. Zero lorem ipsum.
+5. Jeśli dla obniżenia tarcia lepszy będzie Dialog / modal, zastosuj go.
+6. Uzupełnij istniejące podstrony o poprawne meta tagi i messaging SEO.
+
+Założenie biznesowe:
+Budujemy produkt dla małych agencji marketingowych i software house. To nie ma być kolejny ogólny kalendarz. To ma być szybkie narzędzie do koordynacji spotkań projektowych i klienckich. Mniej wiadomości. Mniej chaosu. Szybsze domknięcie terminu. Udział bez logowania dla uczestników.
+
+Copy do bezpośredniego użycia:
+- H1: Ustalaj terminy spotkań szybciej — z zespołem i klientem
+- Subheadline: Koniec chaosu w umawianiu spotkań projektowych. MeetifyNow pomaga małym agencjom marketingowym i software house szybciej domykać terminy bez zbędnego logowania i bez wielowątkowej wymiany wiadomości.
+- Bullet: Udział bez logowania dla uczestników
+- Bullet: Mniej wiadomości potrzebnych do zamknięcia terminu
+- Bullet: Szablony spotkań dla pracy projektowej
+- Bullet: Integracje z kalendarzem i workflow zespołu
+- CTA primary: Zacznij ustalać termin
+- CTA secondary: Zobacz jak to działa
+- Meta title: MeetifyNow — szybkie ustalanie terminów z klientem i zespołem
+- Meta description: Ustalaj terminy spotkań projektowych i klienckich szybciej. Bez chaosu, bez zbędnego logowania, z myślą o małych agencjach marketingowych i software house.
+
+Task 1:
+Uporządkuj landing page i create-meeting flow pod aktywację. Template’y spotkań mają być widoczne od razu. Liczba pól ma być minimalna. Zaawansowane ustawienia schowane. Główny CTA ma prowadzić szybko do stworzenia spotkania.
+
+Task 2:
+Uprość publiczny widok odpowiedzi bez logowania. Użytkownik ma od razu rozumieć co zaznaczyć i co stanie się dalej.
+
+Task 3:
+Usprawnij widok organizatora. Ma jasno pokazywać najmocniejsze sloty, brakujące odpowiedzi i prostą finalizację terminu.
+
+Task 4:
+Wstrzyknij meta tagi i spójny messaging na istniejących podstronach.
+
+Na teraz wykonaj wyłącznie Task 1. Po zakończeniu wypisz zmienione pliki, opisz wpływ na CRO i zakończ odpowiedź.

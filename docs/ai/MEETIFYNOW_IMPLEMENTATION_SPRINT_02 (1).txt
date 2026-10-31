@@ -1,0 +1,19 @@
+Sprint 02 — Team Workflow
+
+Zakres wyłącznie na ten sprint:
+1. Zidentyfikuj obszary workspace, role i integracje kalendarzy.
+2. Dodaj lub uporządkuj:
+   - onboarding workspace,
+   - role zespołowe,
+   - branding firmy,
+   - przypomnienia i follow-up,
+   - prosty dashboard czasu koordynacji.
+3. Nie wdrażaj jeszcze szerokiej warstwy AI.
+
+Cel biznesowy:
+Podnieść retencję i przesunąć produkt z utility do workflow B2B.
+
+Po wdrożeniu:
+- pokaż zmienione pliki,
+- opisz wpływ na retencję i gotowość do płatności,
+- wskaż co pozostało do sprintu 03.

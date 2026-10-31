@@ -1,6 +1,9 @@
+import { useUser } from "@clerk/nextjs";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { rememberMeeting } from "@/lib/recentMeetings";
+import { errorText } from "@/lib/utils";
 import { Locale } from "@root/i18n.config";
-import { useMutation } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import moment from "moment";
 import "moment/locale/pl";
 import { useRouter } from "next/navigation";
@@ -9,10 +12,14 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { api } from "../../../convex/_generated/api";
 
-interface DailyTimeRange {
+export interface DailyTimeRange {
   date: number;
   times: number[];
 }
+
+export type DailyHours = {
+  [date: number]: { from: number; to: number };
+};
 
 type Inputs = {
   meeting__name: string;
@@ -20,9 +27,7 @@ type Inputs = {
   meeting__link?: string;
 };
 
-type DailyHours = {
-  [date: number]: { from: number; to: number };
-};
+const DRAFT_KEY = "meetifynow_draft";
 
 export const useCreateMeeting = ({
   lang,
@@ -33,6 +38,14 @@ export const useCreateMeeting = ({
 }) => {
   moment.locale(lang);
   const router = useRouter();
+  const { user } = useUser();
+  const ownedWorkspace = useQuery(api.workspaces.getOwned, user ? {} : "skip");
+  const memberships = useQuery(
+    api.workspaces.getMemberships,
+    user && ownedWorkspace === null ? {} : "skip",
+  );
+  // Members create meetings in the workspace they belong to, like owners do.
+  const workspace = ownedWorkspace ?? memberships?.[0] ?? null;
   const createMeetingMutation = useMutation(api.meetings.create);
 
   const [prevStep, setPrevStep] = useState(0);
@@ -53,8 +66,13 @@ export const useCreateMeeting = ({
     string | null
   >(null);
   const [dailyHours, setDailyHours] = useState<DailyHours>({});
-  const [mainFromTime, setMainFromTime] = useState(8);
-  const [mainToTime, setMainToTime] = useState(9);
+  const [mainFromTime, setMainFromTime] = useState(9);
+  const [mainToTime, setMainToTime] = useState(17);
+  const [requiredParticipants, setRequiredParticipants] = useState<string[]>(
+    [],
+  );
+  const [isPrivate, setIsPrivate] = useState(false);
+  const [durationMinutes, setDurationMinutes] = useState(60);
 
   const delta = currStep - prevStep;
 
@@ -63,7 +81,9 @@ export const useCreateMeeting = ({
       .string({
         required_error: dict.page.createMeeting.validate.meeting__name.required,
       })
-      .min(4, dict.page.createMeeting.validate.meeting__name.min)
+      .trim()
+      .min(1, dict.page.createMeeting.validate.meeting__name.required)
+      .min(2, dict.page.createMeeting.validate.meeting__name.min)
       .max(50, dict.page.createMeeting.validate.meeting__name.max),
     meeting__place: z
       .string()
@@ -72,7 +92,7 @@ export const useCreateMeeting = ({
       .or(z.literal("")),
     meeting__link: z
       .string()
-      .url(dict.page.createMeeting.validate.meeting__link.url)
+      .url(dict.page.createMeeting.validate.meeting__link)
       .optional()
       .or(z.literal("")),
   });
@@ -81,6 +101,7 @@ export const useCreateMeeting = ({
     register,
     handleSubmit,
     trigger,
+    setValue,
     formState: { errors },
   } = useForm<Inputs>({ resolver: zodResolver(formSchema) });
 
@@ -179,6 +200,53 @@ export const useCreateMeeting = ({
     fillDailyTimeRanges();
   }, [dailyHours, mainFromTime, mainToTime]);
 
+  // Draft in sessionStorage: a refresh or language switch keeps what was typed.
+  const [draftLoaded, setDraftLoaded] = useState(false);
+  useEffect(() => {
+    try {
+      const draft = JSON.parse(sessionStorage.getItem(DRAFT_KEY) || "null");
+      if (draft) {
+        const details = { name: "", place: "", link: "", ...draft.meetDetails };
+        setMeetDetails(details);
+        setValue("meeting__name", details.name);
+        setValue("meeting__place", details.place);
+        setValue("meeting__link", details.link);
+        // Past days can't be picked any more.
+        const today = moment().startOf("day").valueOf();
+        setSelectedDates(
+          (draft.selectedDates ?? []).filter((d: number) => d >= today),
+        );
+        setDurationMinutes(draft.durationMinutes ?? 60);
+        setMainFromTime(draft.mainFromTime ?? 9);
+        setMainToTime(draft.mainToTime ?? 17);
+      }
+    } catch {}
+    setDraftLoaded(true);
+  }, []);
+  useEffect(() => {
+    if (!draftLoaded || createdAppointmentId) return;
+    try {
+      sessionStorage.setItem(
+        DRAFT_KEY,
+        JSON.stringify({
+          meetDetails,
+          selectedDates,
+          durationMinutes,
+          mainFromTime,
+          mainToTime,
+        }),
+      );
+    } catch {}
+  }, [
+    draftLoaded,
+    createdAppointmentId,
+    meetDetails,
+    selectedDates,
+    durationMinutes,
+    mainFromTime,
+    mainToTime,
+  ]);
+
   const validateDate = () => {
     if (selectedDates.length < 1) {
       setDateError(true);
@@ -204,13 +272,32 @@ export const useCreateMeeting = ({
         meetName: data.meeting__name,
         meetPlace: data.meeting__place || undefined,
         meetLink: data.meeting__link || undefined,
+        workspaceId: workspace?._id ?? undefined,
         dates: dailyTimeRanges,
+        requiredParticipants:
+          requiredParticipants.length > 0 ? requiredParticipants : undefined,
+        isPrivate: (isPrivate && !!workspace) || undefined,
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        lang: lang as "pl" | "en",
+        durationMinutes,
       });
       setCreatedAppointmentId(appointmentId);
       setIsRequestInProgress(false);
-    } catch (error: any) {
+      rememberMeeting({
+        id: appointmentId,
+        name: data.meeting__name.trim(),
+        role: "created",
+      });
+      try {
+        sessionStorage.removeItem(DRAFT_KEY);
+      } catch {}
+    } catch (error) {
       setCreateError(
-        error?.message || dict.page.createMeeting.error.createFailed,
+        errorText(
+          error,
+          dict.errors,
+          dict.page.createMeeting.error.createFailed,
+        ),
       );
       setIsRequestInProgress(false);
     }
@@ -268,9 +355,17 @@ export const useCreateMeeting = ({
     setTimepickerIndex,
     setSelectedDates,
     register,
+    setValue,
     next,
     prev,
     stepsInfo,
+    requiredParticipants,
+    setRequiredParticipants,
+    isPrivate,
+    setIsPrivate,
+    durationMinutes,
+    setDurationMinutes,
+    workspace,
     pushSelectedTimecell,
     popUnselectedTimecell,
     setMainFromTime,
