@@ -2,7 +2,7 @@
 
 import Collapse from "@/components/ui/Collapse";
 import SlidingPill from "@/components/ui/SlidingPill";
-import { useUser } from "@clerk/nextjs";
+import { useUser } from "@/lib/useAppUser";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "convex/react";
 import _ from "lodash";

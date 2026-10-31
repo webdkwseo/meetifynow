@@ -8,7 +8,7 @@ import TeamSection from "@/components/Dashboard/TeamSection";
 import WorkspaceOnboarding from "@/components/Workspace/WorkspaceOnboarding";
 import WorkspaceSettings from "@/components/Workspace/WorkspaceSettings";
 import { useWorkspace } from "@/hooks/useWorkspace";
-import { useUser } from "@clerk/nextjs";
+import { useUser } from "@/lib/useAppUser";
 import { DEFAULT_BRAND_COLOR, textOn } from "@/lib/utils";
 import {
   BarChart3,

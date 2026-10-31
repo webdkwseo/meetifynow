@@ -1,4 +1,4 @@
-import { useUser } from "@clerk/nextjs";
+import { useUser } from "@/lib/useAppUser";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { rememberMeeting } from "@/lib/recentMeetings";
 import { errorText } from "@/lib/utils";

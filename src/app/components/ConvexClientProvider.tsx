@@ -2,7 +2,8 @@
 
 import { plPL } from "@clerk/localizations";
 import { ClerkProvider, useAuth } from "@clerk/nextjs";
-import { ConvexReactClient } from "convex/react";
+import { clerkEnabled } from "@/lib/features";
+import { ConvexProvider, ConvexReactClient } from "convex/react";
 import { ConvexProviderWithClerk } from "convex/react-clerk";
 import { MotionConfig } from "framer-motion";
 import { ConfirmProvider } from "@/components/ui/ConfirmDialog";
@@ -19,6 +20,16 @@ export default function ConvexClientProvider({
   lang: string;
   confirmLabels: { confirm: string; cancel: string };
 }) {
+  const content = (
+    <MotionConfig reducedMotion="user">
+      <ConfirmProvider labels={confirmLabels}>{children}</ConfirmProvider>
+    </MotionConfig>
+  );
+
+  // Without Clerk keys the app runs signed-out (no auth token for Convex).
+  if (!clerkEnabled)
+    return <ConvexProvider client={convex}>{content}</ConvexProvider>;
+
   return (
     <ClerkProvider
       publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY!}
@@ -26,9 +37,7 @@ export default function ConvexClientProvider({
       afterSignOutUrl={`/${lang}`}
     >
       <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
-        <MotionConfig reducedMotion="user">
-          <ConfirmProvider labels={confirmLabels}>{children}</ConfirmProvider>
-        </MotionConfig>
+        {content}
       </ConvexProviderWithClerk>
     </ClerkProvider>
   );
