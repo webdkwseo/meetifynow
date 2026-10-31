@@ -3,7 +3,7 @@ import { match as matchLocale } from "@formatjs/intl-localematcher";
 import { i18n } from "@root/i18n.config";
 import Negotiator from "negotiator";
 import { NextRequest, NextResponse } from "next/server";
-import { features } from "./app/lib/features";
+import { clerkEnabled, features } from "./app/lib/features";
 
 const headerName = "X-Language-Preference";
 
@@ -23,10 +23,16 @@ function getLocale(req: NextRequest): string | "" {
   req.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
 
   const locales: string[] = i18n.locales;
-  const languages = new Negotiator({ headers: negotiatorHeaders }).languages();
+  // Without Accept-Language (bots, curl) Negotiator yields "*", which matchLocale rejects.
+  const languages = new Negotiator({ headers: negotiatorHeaders })
+    .languages()
+    .filter((l) => l !== "*");
 
-  const locale = matchLocale(languages, locales, i18n.defaultLocale);
-  return locale;
+  try {
+    return matchLocale(languages, locales, i18n.defaultLocale);
+  } catch {
+    return i18n.defaultLocale;
+  }
 }
 
 function handleLocale(req: NextRequest) {
@@ -72,16 +78,21 @@ const isAccountRoute = createRouteMatcher([
   "/:lang/meet/:id/reschedule",
 ]);
 
-export default clerkMiddleware(async (auth, req: NextRequest) => {
+function handle(req: NextRequest) {
   if (!features.auth && isAccountRoute(req)) {
     const lang = req.nextUrl.pathname.split("/")[1];
     return NextResponse.redirect(new URL(`/${lang}/`, req.url));
   }
-  if (isProtectedRoute(req)) {
-    await auth.protect();
-  }
   return handleLocale(req);
-});
+}
+
+// Clerk's middleware throws without its keys, so it only wraps the handler when configured.
+export default clerkEnabled
+  ? clerkMiddleware(async (auth, req: NextRequest) => {
+      if (features.auth && isProtectedRoute(req)) await auth.protect();
+      return handle(req);
+    })
+  : handle;
 
 export const config = {
   matcher: [
